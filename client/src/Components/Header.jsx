@@ -1,17 +1,7 @@
 const Header = () => {
   return (
-    <div
-      className=""
-      style={{
-        padding: "20px",
-        height: "20px",
-        width: "100vw",
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "start",
-      }}
-    >
-      <div>Logo</div>
+    <div className="flex justify-between items-center p-2 m-2">
+      <div> &lt; </div>
       <div>Profile</div>
     </div>
   );
