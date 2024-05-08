@@ -1,6 +1,6 @@
+import React from "react";
 import { useState } from "react";
 import BlogPost from "./BlogPost";
-import { dummyBlogData } from "../config";
 
 const BlogPage = () => {
   const [blogs, setBlogs] = useState([]);
