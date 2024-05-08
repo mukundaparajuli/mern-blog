@@ -20,7 +20,7 @@ const BlogPage = () => {
   }, []);
 
   return (
-    <div className="flex justify-center items-center flex-col bg-[#D7DCDD]">
+    <div className="flex justify-center items-center flex-col bg-slate-300">
       {blogs && blogs.map((blog) => <BlogPost {...blog} key={blog._id} />)}
     </div>
   );
