@@ -1,6 +1,41 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
+
+  const [user, setUser] = useState({
+    username: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    let name = e.target.name;
+    let value = e.target.value;
+
+    setUser({ ...user, [name]: value });
+  };
+
+  // handle login
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      });
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        navigate("/");
+      }
+    } catch (error) {
+      console.log("Error occured while logging in the user: ", error);
+    }
+  };
   return (
     <div className="bg-slate-300 h-[100vh] flex justify-center items-center rounded-xl fixed w-full shadow-xl">
       <div className="h-auto w-3/5 bg-slate-100 rounded-lg md:flex items-center md:flex-row ">
@@ -9,7 +44,10 @@ const Login = () => {
           alt=""
           className="w-1/2 rounded-l-xl"
         />
-        <form className="bg-green text-black p-4 flex flex-col gap-2 w-full">
+        <form
+          className="bg-green text-black p-4 flex flex-col gap-2 w-full"
+          onSubmit={handleLogin}
+        >
           <div className="font-bold text-4xl text-start">Sign In</div>
           <input
             type="text"
@@ -17,6 +55,8 @@ const Login = () => {
             id="username"
             placeholder="username"
             className="border-2 w-full gap-2 p-2 my-3 rounded-md "
+            value={user.username}
+            onChange={handleChange}
           />
           <input
             type="password"
@@ -24,6 +64,8 @@ const Login = () => {
             id="password"
             placeholder="password"
             className="border-2 w-full gap-2 p-2 my-3 rounded-md "
+            value={user.password}
+            onChange={handleChange}
           />
           <button
             type="submit"

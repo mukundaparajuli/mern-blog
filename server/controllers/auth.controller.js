@@ -27,7 +27,7 @@ const registerUser = expressAsyncHandler(async (req, res) => {
 
 // login user
 const loginUser = expressAsyncHandler(async (req, res) => {
-    const { username, password } = await req.body();
+    const { username, password } = await req.body;
     if (!username || !password) {
         res.status(400).json({ message: "All fields are mandatory1" });
     }
@@ -52,7 +52,9 @@ const loginUser = expressAsyncHandler(async (req, res) => {
             }
         }, process.env.SECRET_KEY, { expiresIn: "1d" });
 
-        res.status(200).json({ accessToken });
+        res.status(200).cookie('Token', accessToken, {
+            httpOnly: true
+        }).json({ username: validUser.username, email: validUser.email, imageURL: validUser.imageURL, isAdmin: validUser.isAdmin });
     } catch (err) {
         res.status(400).json({ message: "Error occured while signing in!" });
     }
