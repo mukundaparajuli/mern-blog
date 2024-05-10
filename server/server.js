@@ -13,6 +13,7 @@ app.use(express.json());
 app.use("/api/blog/", require("./routes/blog.route"));
 app.use("/api/auth/", require("./routes/auth.route"));
 
+
 app.use(cookieParser);
 app.listen(port, () => {
     console.log("Listening to the port " + port);

@@ -12,13 +12,14 @@ const getAllBlogs = expressAsyncHandler(async (req, res) => {
 });
 
 const createBlog = expressAsyncHandler(async (req, res) => {
-    const { title, blogDescription, coverImage } = req.body;
+    const { title, blogDescription, coverImage, author } = req.body;
+    console.log(req.body);
     if (!title || !blogDescription || !coverImage) {
         return res.status(400).json({ message: "Missing required fields" });
     }
 
     try {
-        const blog = await Blog.create({ title, blogDescription, coverImage });
+        const blog = await Blog.create({ title, blogDescription, coverImage, author });
         res.status(201).json({ blog });
     } catch (err) {
         console.log("Error occurred: ", err);

@@ -1,8 +1,10 @@
+import React, { Suspense } from "react";
 import Register from "./Components/Register";
 import Login from "./Components/Login";
 import BlogList from "./Components/BlogList";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import BlogPage from "./Components/BlogPage";
+const LazyBlogPage = React.lazy(() => import("./Components/BlogPage"));
 
 const router = createBrowserRouter([
   {
@@ -19,7 +21,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/blog/:_id",
-    element: <BlogPage />,
+    element: (
+      <Suspense fallback="Loading...">
+        <LazyBlogPage />
+      </Suspense>
+    ),
   },
 ]);
 

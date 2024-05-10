@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import moment from "moment";
 
 const BlogPage = () => {
   const [blog, setBlog] = useState({});
@@ -29,20 +30,33 @@ const BlogPage = () => {
   }, []);
 
   return (
-    <div className="h-auto bg-slate-300 w-full flex justify-center items-center flex-col ">
+    <div className="bg-slate-300 w-full flex justify-center items-center flex-col sticky h-full overflow-scroll-y">
       {blog && (
         <div key={_id} className="w-2/3 flex  flex-col gap-4 mt-4">
-          <div className="font-bold text-5xl text-start my-4">{blog.title}</div>
+          <div className="font-bold text-4xl text-center my-4">
+            {blog.title}
+          </div>
           <div>
             <img
               src={blog.coverImage}
               alt="cover image"
-              className="rounded-xl p-1 w-auto my-4 h-auto"
+              className="rounded-xl p-1  my-4 w-full h-auto"
             />
           </div>
           {console.log(blog.title)}
-          <div className="text-md font-semibold text-justify my-4">
+          <div className="text-lg font-semibold text-justify my-4">
             {blog.blogDescription}
+          </div>
+
+          <div className="my-4 py-4">
+            {blog.author ? (
+              <div className="font-bold text-md italic">{blog?.author}</div>
+            ) : (
+              <div className="font-bold text-lg italic">Mukunda Parajuli</div>
+            )}
+            <div className="font-semibold text-md italic">
+              {moment(blog?.date).format("MMM Do YY")}
+            </div>
           </div>
         </div>
       )}
