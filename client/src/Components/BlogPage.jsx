@@ -1,33 +1,51 @@
-import { useState } from "react";
-import BlogPost from "./BlogPost";
-import Header from "./Header";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 const BlogPage = () => {
-  const [blogs, setBlogs] = useState([]);
-  const getBlogs = async () => {
-    const response = await fetch("http://localhost:5000/api/blog/blogs", {
-      method: "GET",
-    });
-    console.log(response);
-    if (response.ok) {
-      const data = await response.json();
-      setBlogs(data.blogs);
-      console.log(data.blogs);
-      console.log(blogs);
-    } else {
-      console.log(response);
-    }
-  };
-  useState(() => {
-    getBlogs();
+  const [blog, setBlog] = useState({});
+  const { _id } = useParams();
+  console.log(_id);
+
+  useEffect(() => {
+    const getBlog = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/api/blog/blogs/${_id}`,
+          {
+            method: "GET",
+          }
+        );
+        if (response.ok) {
+          const data = await response.json();
+          console.log(data.blog);
+          setBlog(data.blog);
+        }
+      } catch (err) {
+        console.log("Error occurred while fetching the blog: ", err);
+      }
+    };
+
+    getBlog();
   }, []);
 
   return (
-    <div className="bg-fixed">
-      <Header />
-      <div className="flex justify-center items-center flex-col bg-slate-300">
-        {blogs && blogs.map((blog) => <BlogPost {...blog} key={blog._id} />)}
-      </div>
+    <div className="h-auto bg-slate-300 w-full flex justify-center items-center flex-col ">
+      {blog && (
+        <div key={_id} className="w-2/3 flex  flex-col gap-4 mt-4">
+          <div className="font-bold text-5xl text-start my-4">{blog.title}</div>
+          <div>
+            <img
+              src={blog.coverImage}
+              alt="cover image"
+              className="rounded-xl p-1 w-auto my-4 h-auto"
+            />
+          </div>
+          {console.log(blog.title)}
+          <div className="text-md font-semibold text-justify my-4">
+            {blog.blogDescription}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

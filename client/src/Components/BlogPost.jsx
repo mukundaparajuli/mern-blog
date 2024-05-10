@@ -1,6 +1,12 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
-const BlogPost = ({ title, blogDescription, coverImage }) => {
+const BlogPost = ({ title, blogDescription, coverImage, _id }) => {
+  const navigate = useNavigate();
+
+  const handleBlogPage = (_id) => {
+    navigate("/blog/" + _id);
+  };
   return (
     <div className="m-12 h-72 shadow-lg rounded-lg my-4 pr-8 w-2/3 flex justify-evenly bg-slate-100">
       <img
@@ -13,7 +19,10 @@ const BlogPost = ({ title, blogDescription, coverImage }) => {
         <div className="overflow-hidden text-justify h-36 text-blog-desc">
           {blogDescription}
         </div>
-        <button className="w-full rounded-xl bg-black text-white font-semibold py-1 my-8">
+        <button
+          className="w-full rounded-xl bg-black text-white font-semibold py-1 my-8"
+          onClick={() => handleBlogPage(_id)}
+        >
           Read More
         </button>
       </div>

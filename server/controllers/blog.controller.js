@@ -26,4 +26,17 @@ const createBlog = expressAsyncHandler(async (req, res) => {
     }
 });
 
-module.exports = { getAllBlogs, createBlog };
+const getOneBlog = expressAsyncHandler(async (req, res) => {
+    try {
+        const blog = await Blog.findOne({ _id: req.params.blogid });
+        if (!blog) {
+            res.status(404).json({ message: "Blog not available" });
+        }
+
+        blog && res.json({ blog });
+    } catch (err) {
+        console.log("Error occured while finding the blog!");
+    }
+})
+
+module.exports = { getAllBlogs, getOneBlog, createBlog };

@@ -1,12 +1,13 @@
 import Register from "./Components/Register";
 import Login from "./Components/Login";
-import BlogPage from "./Components/BlogPage";
+import BlogList from "./Components/BlogList";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import BlogPage from "./Components/BlogPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <BlogPage />,
+    element: <BlogList />,
   },
   {
     path: "/register",
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
+  },
+  {
+    path: "/blog/:_id",
+    element: <BlogPage />,
   },
 ]);
 
