@@ -30,7 +30,7 @@ const Login = () => {
       if (response.ok) {
         const data = await response.json();
         console.log(data);
-        navigate("/");
+        // navigate("/");
       }
     } catch (error) {
       console.log("Error occured while logging in the user: ", error);

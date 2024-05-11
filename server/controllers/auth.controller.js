@@ -54,7 +54,7 @@ const loginUser = expressAsyncHandler(async (req, res) => {
 
         res.status(200).cookie('Token', accessToken, {
             httpOnly: true
-        }).json({ username: validUser.username, email: validUser.email, imageURL: validUser.imageURL, isAdmin: validUser.isAdmin });
+        }).json({ success: true, username: validUser.username, email: validUser.email, imageURL: validUser.imageURL, isAdmin: validUser.isAdmin });
     } catch (err) {
         res.status(400).json({ message: "Error occured while signing in!" });
     }

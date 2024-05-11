@@ -12,7 +12,7 @@ app.use(express.json());
 
 app.use("/api/blog/", require("./routes/blog.route"));
 app.use("/api/auth/", require("./routes/auth.route"));
-
+app.use("/api/admin/", require("./routes/admin.route"));
 
 app.use(cookieParser);
 app.listen(port, () => {
