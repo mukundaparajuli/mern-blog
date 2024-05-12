@@ -1,7 +1,10 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { UserContext } from "../store/userContext";
 
 const Login = () => {
+  const { setUserInfo } = useContext(UserContext);
+
   const navigate = useNavigate();
 
   const [user, setUser] = useState({
@@ -29,7 +32,7 @@ const Login = () => {
       });
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
+        setUserInfo(data);
         navigate("/");
       }
     } catch (error) {

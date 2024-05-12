@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import BlogPost from "./BlogPost";
 import Header from "./Header";
+import { UserContext } from "../store/userContext";
 
 const BlogList = () => {
   const [blogs, setBlogs] = useState([]);
+  const user = useContext(UserContext);
+  console.log(user);
   const getBlogs = async () => {
     const response = await fetch("http://localhost:5000/api/blog/blogs", {
       method: "GET",

@@ -22,9 +22,14 @@ const Users = () => {
   }, []);
 
   return (
-    <div>
-      {users && users.map((user) => <li key={user._id}>{user.username}</li>)}
-    </div>
+    <ul className="p-4 list-none w-full b">
+      {users &&
+        users.map((user) => (
+          <li key={user._id} className="bg-gradient-to-b ">
+            {user.username}
+          </li>
+        ))}
+    </ul>
   );
 };
 
