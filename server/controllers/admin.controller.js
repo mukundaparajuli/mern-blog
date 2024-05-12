@@ -3,10 +3,11 @@ const User = require("../models/user.model");
 
 const getUsers = expressAsyncHandler(async (req, res) => {
     try {
-        const users = User.find();
+        const users = await User.find().select("-password");
+        console.log(users);
         res.json({ users });
     } catch (err) {
-        console.log("Error occured while fetcing the users")
+        console.log("Error occured while fetcing the users: ", err)
     }
 });
 

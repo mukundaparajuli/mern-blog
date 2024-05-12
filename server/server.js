@@ -7,6 +7,7 @@ const cookieParser = require("cookie-parser");
 const port = process.env.PORT;
 
 databaseConnection();
+app.use(cookieParser());
 app.use(cors());
 app.use(express.json());
 
@@ -14,7 +15,6 @@ app.use("/api/blog/", require("./routes/blog.route"));
 app.use("/api/auth/", require("./routes/auth.route"));
 app.use("/api/admin/", require("./routes/admin.route"));
 
-app.use(cookieParser);
 app.listen(port, () => {
     console.log("Listening to the port " + port);
 })
