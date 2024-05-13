@@ -10,15 +10,14 @@ const BlogList = () => {
   const getBlogs = async () => {
     const response = await fetch("http://localhost:5000/api/blog/blogs", {
       method: "GET",
+      credentials: "include",
     });
     console.log(response);
     if (response.ok) {
       const data = await response.json();
       setBlogs(data.blogs);
-      console.log(data.blogs);
-      console.log(blogs);
     } else {
-      console.log(response);
+      console.log(response.error);
     }
   };
   useState(() => {

@@ -3,6 +3,7 @@ const Blog = require("../models/blog.model");
 
 const getAllBlogs = expressAsyncHandler(async (req, res) => {
     try {
+        console.log("blog: ", await req.body);
         const blogs = await Blog.find();
         res.json({ blogs });
     } catch (err) {

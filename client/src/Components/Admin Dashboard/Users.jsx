@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
@@ -6,6 +6,7 @@ const Users = () => {
     try {
       const response = await fetch(`http://localhost:5000/api/admin/users`, {
         method: "GET",
+        credentials: "include",
       });
       if (response.ok) {
         const data = await response.json();

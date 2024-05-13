@@ -28,11 +28,14 @@ const Login = () => {
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
         body: JSON.stringify(user),
       });
       if (response.ok) {
         const data = await response.json();
+        console.log(data);
         setUserInfo(data);
+        console.log(document.cookie);
         navigate("/");
       }
     } catch (error) {

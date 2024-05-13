@@ -52,10 +52,15 @@ const loginUser = expressAsyncHandler(async (req, res) => {
             }
         }, process.env.SECRET_KEY, { expiresIn: "1d" });
 
+        const expiryDate = new Date();
+        expiryDate.setDate(expiryDate.getDate() + 1);
+
         res.status(200).cookie('Token', accessToken, {
             secure: false,
-            httpOnly: true,
-            expires: new Date(Date.now() + 1000 * 30),
+            // httpOnly: true,
+            expires: expiryDate,
+            domain: 'localhost',
+            sameSite: "lax",
         }).json({ token: accessToken, success: true, username: validUser.username, email: validUser.email, imageURL: validUser.imageURL, isAdmin: validUser.isAdmin });
     } catch (err) {
         res.status(400).json({ message: "Error occured while signing in!" });

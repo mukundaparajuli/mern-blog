@@ -8,7 +8,12 @@ const port = process.env.PORT;
 
 databaseConnection();
 app.use(cookieParser());
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:5000',
+    credentials: true,
+    methods: ['GET', 'POST', 'DELETE', 'PUT', 'PATCH'],
+    allowedHeaders: ['Content-Type']
+}));
 app.use(express.json());
 
 app.use("/api/blog/", require("./routes/blog.route"));
