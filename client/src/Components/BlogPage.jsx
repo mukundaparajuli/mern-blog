@@ -1,11 +1,13 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import moment from "moment";
 import DOMPurify from "dompurify";
+import { UserContext } from "../store/userContext";
 
 const BlogPage = () => {
   const [blog, setBlog] = useState({});
   const { _id } = useParams();
+  const { userInfo } = useContext(UserContext);
   console.log(_id);
 
   useEffect(() => {
@@ -28,7 +30,7 @@ const BlogPage = () => {
     };
 
     getBlog();
-  }, []);
+  }, [_id]); // Added _id as a dependency for useEffect
 
   return (
     <div className="bg-slate-300 w-full flex justify-center items-center flex-col sticky h-full overflow-scroll-y">
@@ -44,7 +46,6 @@ const BlogPage = () => {
               className="rounded-xl p-1  my-4 w-full h-auto"
             />
           </div>
-          {console.log(blog.title)}
           <div
             className="text-lg font-semibold text-justify my-4"
             dangerouslySetInnerHTML={{

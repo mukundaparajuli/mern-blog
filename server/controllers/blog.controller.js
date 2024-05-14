@@ -43,4 +43,19 @@ const getOneBlog = expressAsyncHandler(async (req, res) => {
     }
 })
 
-module.exports = { getAllBlogs, getOneBlog, createBlog };
+const deleteBlog = expressAsyncHandler(async (req, res) => {
+    try {
+        const blog = await Blog.findById(req.params.blogid);
+        if (!blog) {
+            res.status(404).json({ message: "Blog not available" });
+        }
+        if (blog) {
+            await Blog.findByIdAndDelete(req.params.blogid);
+            res.status(200).json({ message: "Blog deleted successfully" });
+        }
+    } catch (err) {
+        console.log("Blog deletion unsuccessful");
+    }
+})
+
+module.exports = { getAllBlogs, getOneBlog, createBlog, deleteBlog };

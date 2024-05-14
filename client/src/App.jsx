@@ -7,9 +7,11 @@ import Dashboard from "./Components/Admin Dashboard/Dashboard";
 import TextEditor from "./Components/Admin Dashboard/TextEditor";
 import Users from "./Components/Admin Dashboard/Users";
 import PostAnalysis from "./Components/Admin Dashboard/PostAnalysis";
-import ViewPosts from "./Components/Admin Dashboard/ViewPosts";
+// import ViewPosts from "./Components/Admin Dashboard/ViewPosts";
 import AdminProtectedRoute from "./utils/AdminProtectedRoute";
 import UserProtectedRoutes from "./utils/UserProtectedRoutes";
+import BlogPage from "./Components/BlogPage";
+import GetAllBlogs from "./Components/Admin Dashboard/GetAllBlogs";
 const LazyBlogPage = React.lazy(() => import("./Components/BlogPage"));
 
 const router = createBrowserRouter([
@@ -53,7 +55,11 @@ const router = createBrowserRouter([
       },
       {
         path: "view-posts",
-        element: <ViewPosts />,
+        element: <GetAllBlogs />,
+      },
+      {
+        path: "blog/:_id",
+        element: <BlogPage />,
       },
     ],
   },
