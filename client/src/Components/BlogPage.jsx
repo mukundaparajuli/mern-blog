@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import moment from "moment";
+import DOMPurify from "dompurify";
 
 const BlogPage = () => {
   const [blog, setBlog] = useState({});
@@ -44,9 +45,12 @@ const BlogPage = () => {
             />
           </div>
           {console.log(blog.title)}
-          <div className="text-lg font-semibold text-justify my-4">
-            {blog.blogDescription}
-          </div>
+          <div
+            className="text-lg font-semibold text-justify my-4"
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(blog.blogDescription),
+            }}
+          ></div>
 
           <div className="my-4 py-4">
             {blog.author ? (
