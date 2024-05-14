@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import UserCard from "./UserCard";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
@@ -24,12 +25,7 @@ const Users = () => {
 
   return (
     <ul className="p-4 list-none w-full b">
-      {users &&
-        users.map((user) => (
-          <li key={user._id} className="bg-gradient-to-b ">
-            {user.username}
-          </li>
-        ))}
+      {users && users.map((user) => <UserCard key={user._id} {...user} />)}
     </ul>
   );
 };

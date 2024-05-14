@@ -9,12 +9,17 @@ import Users from "./Components/Admin Dashboard/Users";
 import PostAnalysis from "./Components/Admin Dashboard/PostAnalysis";
 import ViewPosts from "./Components/Admin Dashboard/ViewPosts";
 import AdminProtectedRoute from "./utils/AdminProtectedRoute";
+import UserProtectedRoutes from "./utils/UserProtectedRoutes";
 const LazyBlogPage = React.lazy(() => import("./Components/BlogPage"));
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <BlogList />,
+    element: (
+      <UserProtectedRoutes>
+        <BlogList />
+      </UserProtectedRoutes>
+    ),
   },
   {
     path: "/register",
@@ -27,9 +32,11 @@ const router = createBrowserRouter([
   {
     path: "/admin",
     element: (
-      <AdminProtectedRoute>
-        <Dashboard />
-      </AdminProtectedRoute>
+      <UserProtectedRoutes>
+        <AdminProtectedRoute>
+          <Dashboard />
+        </AdminProtectedRoute>
+      </UserProtectedRoutes>
     ),
     children: [
       {

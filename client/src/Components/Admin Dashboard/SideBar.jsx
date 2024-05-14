@@ -3,7 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 
 const SideBar = () => {
   return (
-    <div className="fixed bg-gray-700 text-white w-1/4 h-[100vh] flex flex-col gap-4">
+    <div className="fixed bg-gray-700 text-white w-1/4 h-[100vh] flex flex-col gap-4 p-3">
       <NavLink
         to={"/admin/text-editor"}
         className={({ isActive }) => [
