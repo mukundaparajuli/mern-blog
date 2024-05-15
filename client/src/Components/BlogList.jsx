@@ -26,14 +26,8 @@ const BlogList = () => {
   }, []);
 
   return (
-    <div className="bg-fixed bg-slate-300">
-      <div className="m-12">
-        <Header />
-        <Categories />
-        <div className="flex justify-center items-center flex-col w-full">
-          {blogs && blogs.map((blog) => <BlogPost {...blog} key={blog._id} />)}
-        </div>
-      </div>
+    <div className="flex justify-center items-center flex-col w-full">
+      {blogs && blogs.map((blog) => <BlogPost {...blog} key={blog._id} />)}
     </div>
   );
 };

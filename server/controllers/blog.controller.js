@@ -61,11 +61,22 @@ const deleteBlog = expressAsyncHandler(async (req, res) => {
 
 // find by categories
 const findByCategories = expressAsyncHandler(async (req, res) => {
-    const category = await req.body;
-    if (category) {
-        const blog = await Blog.find({ category });
-        console.log()
+    try {
+        const category = req.params.category; // Access category directly
+        console.log(category);
+
+        if (category) {
+            const blogs = await Blog.find({ category }); // Use category to find blogs
+            console.log(blogs);
+            res.status(200).json({ blogs }); // Return blogs
+        } else {
+            res.status(404).json({ message: "Category not found!" });
+        }
+    } catch (err) {
+        console.log("Error occurred while fetching the blogs by category: ", err);
+        res.status(500).json({ message: "Internal Server Error" });
     }
 })
 
-module.exports = { getAllBlogs, getOneBlog, createBlog, deleteBlog };
+
+module.exports = { getAllBlogs, getOneBlog, createBlog, deleteBlog, findByCategories };
