@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import BlogPost from "./BlogPost";
 import Header from "./Header";
 import { UserContext } from "../store/userContext";
+import Categories from "./Categories";
 
 const BlogList = () => {
   const [blogs, setBlogs] = useState([]);
@@ -25,10 +26,13 @@ const BlogList = () => {
   }, []);
 
   return (
-    <div className="bg-fixed">
-      <Header />
-      <div className="flex justify-center items-center flex-col bg-slate-300">
-        {blogs && blogs.map((blog) => <BlogPost {...blog} key={blog._id} />)}
+    <div className="bg-fixed bg-slate-300">
+      <div className="m-12">
+        <Header />
+        <Categories />
+        <div className="flex justify-center items-center flex-col w-full">
+          {blogs && blogs.map((blog) => <BlogPost {...blog} key={blog._id} />)}
+        </div>
       </div>
     </div>
   );

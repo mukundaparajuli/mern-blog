@@ -9,7 +9,7 @@ const BlogPost = ({ title, blogDescription, coverImage, _id }) => {
     navigate("/blog/" + _id);
   };
   return (
-    <div className="m-12 h-72 shadow-lg rounded-lg my-4 pr-8 w-2/3 flex justify-evenly bg-slate-100">
+    <div className="h-72 shadow-lg rounded-lg my-4 pr-8 w-2/3 flex justify-evenly bg-slate-100">
       <img
         src={coverImage}
         alt="Ìmage"

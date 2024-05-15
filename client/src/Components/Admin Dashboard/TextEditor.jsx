@@ -15,6 +15,7 @@ const TextEditor = () => {
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
         body: JSON.stringify({
           title: title,
           blogDescription: blogDescription,

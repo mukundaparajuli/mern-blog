@@ -58,4 +58,14 @@ const deleteBlog = expressAsyncHandler(async (req, res) => {
     }
 })
 
+
+// find by categories
+const findByCategories = expressAsyncHandler(async (req, res) => {
+    const category = await req.body;
+    if (category) {
+        const blog = await Blog.find({ category });
+        console.log()
+    }
+})
+
 module.exports = { getAllBlogs, getOneBlog, createBlog, deleteBlog };
