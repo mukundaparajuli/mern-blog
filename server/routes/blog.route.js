@@ -8,6 +8,7 @@ router.get('/blogs', validateJWT, getAllBlogs);
 router.get('/blogs/:blogid', getOneBlog);
 router.post('/blogs', validateJWT, validateAdmin, createBlog);
 router.delete('/blogs/:blogid', validateJWT, validateAdmin, deleteBlog);
-router.get('/blogs/category/:category', findByCategories);
+router.get('/blogs/category/:category', validateJWT, findByCategories);
+router.get('/blogs/search/:searchTerm', validateJWT, findByCategories);
 
 module.exports = router;

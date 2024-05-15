@@ -14,6 +14,7 @@ import BlogPage from "./Components/BlogPage";
 import GetAllBlogs from "./Components/Admin Dashboard/GetAllBlogs";
 import BlogsListDashboard from "./Components/BlogsListDashboard";
 import BlogListByCategory from "./Components/BlogListByCategory";
+import SearchBar from "./Components/SearchBar";
 const LazyBlogPage = React.lazy(() => import("./Components/BlogPage"));
 
 const router = createBrowserRouter([
@@ -90,6 +91,10 @@ const router = createBrowserRouter([
         <LazyBlogPage />
       </Suspense>
     ),
+  },
+  {
+    path: "/search",
+    element: <SearchBar />,
   },
 ]);
 
