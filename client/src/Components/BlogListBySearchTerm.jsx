@@ -2,15 +2,15 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import BlogPost from "./BlogPost";
 
-const BlogListByCategory = () => {
-  let [blogsByCategory, setBlogsByCategory] = useState([]);
-  const { categories } = useParams();
+const BlogListBySearchTerm = () => {
+  let [blogsBySearchTerm, setBlogsBySearchTerm] = useState([]);
+  const { searchTerm } = useParams();
 
-  console.log(categories);
-  const getBlogsByCategory = async () => {
+  console.log(searchTerm);
+  const getBlogsBySearchTerm = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/blog/blogs/category/${categories}`,
+        `http://localhost:5000/api/blog/blogs/search/${searchTerm}`,
         {
           method: "GET",
           credentials: "include",
@@ -19,7 +19,7 @@ const BlogListByCategory = () => {
       if (response.ok) {
         const data = await response.json();
         console.log(data.blogs);
-        setBlogsByCategory(data.blogs);
+        setBlogsBySearchTerm(data.blogs);
       } else {
         console.log(await response.error());
       }
@@ -29,17 +29,17 @@ const BlogListByCategory = () => {
   };
 
   useEffect(() => {
-    getBlogsByCategory();
-  }, [categories]);
+    getBlogsBySearchTerm();
+  }, [searchTerm]);
   return (
     <div className="flex justify-center items-center flex-col w-full">
-      {blogsByCategory ? (
-        blogsByCategory.map((blog) => <BlogPost {...blog} key={blog._id} />)
+      {blogsBySearchTerm ? (
+        blogsBySearchTerm.map((blog) => <BlogPost {...blog} key={blog._id} />)
       ) : (
-        <div>Blog not found for this category!</div>
+        <div>Blog not found for this SearchTerm!</div>
       )}
     </div>
   );
 };
 
-export default BlogListByCategory;
+export default BlogListBySearchTerm;

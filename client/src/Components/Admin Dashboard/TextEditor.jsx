@@ -7,6 +7,7 @@ const TextEditor = () => {
   const editor = useRef(null);
   const [blogDescription, setBlogDescription] = useState("");
   const [title, setTitle] = useState("");
+  const [category, setCategory] = useState("");
   const handleCreatePost = async (e) => {
     e.preventDefault();
     try {
@@ -20,6 +21,7 @@ const TextEditor = () => {
           title: title,
           blogDescription: blogDescription,
           author: userInfo?.username,
+          category: category,
         }),
       });
       if (response.ok) {
@@ -51,6 +53,20 @@ const TextEditor = () => {
           />
         </div>
         <div>
+          <label htmlFor="category" className="sr-only">
+            Category
+          </label>
+          <input
+            type="text"
+            name="category"
+            id="category"
+            placeholder="Category"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+            className="w-full my-2 p-2 border"
+          />
+        </div>
+        <div>
           <JoditEditor
             ref={editor}
             value={blogDescription}
@@ -69,6 +85,7 @@ const TextEditor = () => {
             placeholder="Select an Image as Cover Image"
           />
         </div>
+
         <button type="submit">Create Post</button>
       </form>
     </div>

@@ -15,6 +15,7 @@ import GetAllBlogs from "./Components/Admin Dashboard/GetAllBlogs";
 import BlogsListDashboard from "./Components/BlogsListDashboard";
 import BlogListByCategory from "./Components/BlogListByCategory";
 import SearchBar from "./Components/SearchBar";
+import BlogListBySearchTerm from "./Components/BlogListBySearchTerm";
 const LazyBlogPage = React.lazy(() => import("./Components/BlogPage"));
 
 const router = createBrowserRouter([
@@ -39,6 +40,14 @@ const router = createBrowserRouter([
         element: (
           <UserProtectedRoutes>
             <BlogListByCategory />
+          </UserProtectedRoutes>
+        ),
+      },
+      {
+        path: "/search/:searchTerm",
+        element: (
+          <UserProtectedRoutes>
+            <BlogListBySearchTerm />
           </UserProtectedRoutes>
         ),
       },
@@ -91,10 +100,6 @@ const router = createBrowserRouter([
         <LazyBlogPage />
       </Suspense>
     ),
-  },
-  {
-    path: "/search",
-    element: <SearchBar />,
   },
 ]);
 

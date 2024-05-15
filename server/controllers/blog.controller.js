@@ -79,21 +79,27 @@ const findByCategories = expressAsyncHandler(async (req, res) => {
 })
 
 // find by search
-const findBySearch = expressAsyncHandler(async () => {
+const findBySearch = expressAsyncHandler(async (req, res) => {
     try {
         const searchTerm = req.params.searchTerm;
         if (searchTerm) {
             console.log(searchTerm);
-            const blogs = await Blog.find({ title: searchTerm });
+            const blogs = await Blog.find({
+                title: {
+                    $regex: searchTerm,
+                    $options: 'i' // Case-insensitive search
+                }
+            });
             console.log(blogs);
-            res.json(200).json({ blogs });
+            res.status(200).json({ blogs });
         } else {
             res.status(404).json({ message: "Blog not found!" });
         }
     } catch (err) {
-        console.log("Error occured while fetching the blogs by search term: ", err);
+        console.log("Error occurred while fetching the blogs by search term: ", err);
         res.status(500).json({ message: "Internal Server Error" });
     }
-})
+});
+
 
 module.exports = { getAllBlogs, getOneBlog, createBlog, deleteBlog, findByCategories, findBySearch };
