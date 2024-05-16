@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import moment from "moment";
 import DOMPurify from "dompurify";
 import { UserContext } from "../store/userContext";
+import AddComment from "./AddComment";
 
 const BlogPage = () => {
   const [blog, setBlog] = useState({});
@@ -30,10 +31,10 @@ const BlogPage = () => {
     };
 
     getBlog();
-  }, [_id]); // Added _id as a dependency for useEffect
+  }, [_id]);
 
   return (
-    <div className="bg-slate-300 w-full flex justify-center items-center flex-col sticky h-full overflow-scroll-y">
+    <div className="bg-slate-300 w-full flex justify-center items-center flex-col sticky min-h-screen h-full overflow-scroll-y">
       {blog && (
         <div key={_id} className="w-2/3 flex  flex-col gap-4 mt-4">
           <div className="font-bold text-4xl text-center my-4">
@@ -65,6 +66,9 @@ const BlogPage = () => {
           </div>
         </div>
       )}
+      <div className="w-2/3 m-4">
+        <AddComment blogId={_id} />
+      </div>
     </div>
   );
 };

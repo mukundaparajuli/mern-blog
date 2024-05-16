@@ -9,14 +9,14 @@ const SearchBar = () => {
   };
   return (
     <div className="px-8 w-full flex justify-center">
-      <div className="flex justify-evenly my-4 w-2/3 rounded-md border-2 border-black bg-slate-200">
+      <div className="flex justify-evenly my-4 w-2/3 rounded-md border-2 border-black">
         <div className="w-11/12">
           <input
             type="text"
             name="searchTerm"
             id="searchTerm"
             value={searchTerm}
-            className="w-full border-black px-2 py-2 rounded-l-md"
+            className="w-full border-black p-2 rounded-l-md"
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search..."
           />

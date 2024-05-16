@@ -43,15 +43,16 @@ const loginUser = expressAsyncHandler(async (req, res) => {
     }
 
     try {
+        console.log(validUser);
         const accessToken = jwt.sign({
             user: {
                 username: validUser.username,
                 email: validUser.email,
                 imageURL: validUser.imageURL,
-                isAdmin: validUser.isAdmin
+                isAdmin: validUser.isAdmin,
+                userId: validUser._id,
             }
         }, process.env.SECRET_KEY, { expiresIn: "1d" });
-
         const expiryDate = new Date();
         expiryDate.setDate(expiryDate.getDate() + 1);
 
@@ -61,7 +62,7 @@ const loginUser = expressAsyncHandler(async (req, res) => {
             expires: expiryDate,
             domain: 'localhost',
             sameSite: "lax",
-        }).json({ token: accessToken, success: true, username: validUser.username, email: validUser.email, imageURL: validUser.imageURL, isAdmin: validUser.isAdmin });
+        }).json({ token: accessToken, success: true, username: validUser.username, email: validUser.email, imageURL: validUser.imageURL, isAdmin: validUser.isAdmin, userId: validUser._id });
     } catch (err) {
         res.status(400).json({ message: "Error occured while signing in!" });
     }
