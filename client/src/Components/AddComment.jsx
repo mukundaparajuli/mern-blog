@@ -32,13 +32,13 @@ const AddComment = ({ blogId }) => {
     }
   };
   return (
-    <div>
+    <div className="gap-2 flex">
       <input
         type="text"
         name="commentText"
         id="commentText"
         placeholder="Comment here!"
-        className="p-2 w-4/5"
+        className="p-2 w-4/5 rounded-lg"
         value={comment}
         onChange={(e) => setComment(e.target.value)}
       />

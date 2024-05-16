@@ -30,7 +30,7 @@ const getAllComments = expressAsyncHandler(async (req, res) => {
     }
 
     try {
-        const comments = await Comment.find({ blogId }).populate('userId', 'username', 'imageURL'); // Populate to include user info if needed
+        const comments = await Comment.find({ blogId }).populate('userId', 'username _id imageURL')
         res.status(200).json(comments);
     } catch (error) {
         console.error("Error occurred while fetching comments: ", error);

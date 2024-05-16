@@ -23,13 +23,16 @@ const CommentSection = ({ blogId }) => {
 
   useEffect(() => {
     getComments();
-  }, []);
+  }, [comments]);
 
   return (
-    <div>
-      {comments.map((comment) => (
-        <CommentCard key={comment._id} {...comments} />
-      ))}
+    <div className="bg-white">
+      {comments.map(
+        (comment) => (
+          console.log({ ...comment }),
+          (<CommentCard key={comment._id} {...comment} />)
+        )
+      )}
     </div>
   );
 };
