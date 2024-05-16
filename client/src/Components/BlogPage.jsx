@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import moment from "moment";
 import DOMPurify from "dompurify";
 import { UserContext } from "../store/userContext";
 import AddComment from "./AddComment";
+import CommentSection from "./CommentSection";
 
 const BlogPage = () => {
   const [blog, setBlog] = useState({});
@@ -68,6 +69,7 @@ const BlogPage = () => {
       )}
       <div className="w-2/3 m-4">
         <AddComment blogId={_id} />
+        <CommentSection blogId={_id} />
       </div>
     </div>
   );
