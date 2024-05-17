@@ -38,4 +38,23 @@ const getAllComments = expressAsyncHandler(async (req, res) => {
     }
 });
 
-module.exports = { addComment, getAllComments };
+// delete a comment
+const deleteComment = expressAsyncHandler(async (req, res) => {
+    const { commentId } = req.params;
+    console.log(commentId)
+
+    if (!commentId) {
+        return res.status(404).json({ message: "Comment ID is required!" });
+    }
+
+    try {
+        const comment = await Comment.findByIdAndDelete(commentId);
+        console.log(comment);
+        res.status(200).json(comment)
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+})
+
+module.exports = { addComment, getAllComments, deleteComment };
