@@ -1,12 +1,35 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
+import { UserContext } from "../store/userContext";
 
-const CommentCard = ({ userId, commentText }) => {
+const CommentCard = ({ userId, commentText, _id }) => {
   const { imageURL, username } = userId;
-  const [isUsersComment, setIsUsersComment] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  useEffect(() => {});
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleDeleteComment = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/comment/delete/` + _id,
+        {
+          method: "DELETE",
+        }
+      );
+      if (response.ok) {
+        const data = response.json();
+        console.log(data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const { userInfo } = useContext(UserContext);
+
   return (
-    <div className="flex justify-start w-full gap-4 my-4 bg-white border-b-2 p-4 shadow-sm">
+    <div className="relative flex justify-start w-full gap-4 my-4 bg-white border-b-2 p-4 shadow-sm">
       <div className="flex-shrink-0">
         <img
           src={imageURL}
@@ -26,6 +49,7 @@ const CommentCard = ({ userId, commentText }) => {
           strokeWidth={1.5}
           stroke="currentColor"
           className="w-6 h-6 cursor-pointer"
+          onClick={toggleMenu}
         >
           <path
             strokeLinecap="round"
@@ -33,6 +57,33 @@ const CommentCard = ({ userId, commentText }) => {
             d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z"
           />
         </svg>
+        {isMenuOpen && (
+          <div className="absolute right-0 mt-6 w-48 bg-white border rounded shadow-lg z-10">
+            <ul className="py-1">
+              {userId._id === userInfo.userId && (
+                <li
+                  className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
+                  onClick={async () => {
+                    // Handle delete comment action here
+                    setIsMenuOpen(false);
+                    handleDeleteComment();
+                  }}
+                >
+                  Delete Comment
+                </li>
+              )}
+              <li
+                className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
+                onClick={() => {
+                  // Handle report comment action here
+                  setIsMenuOpen(false);
+                }}
+              >
+                Report Comment
+              </li>
+            </ul>
+          </div>
+        )}
       </div>
     </div>
   );

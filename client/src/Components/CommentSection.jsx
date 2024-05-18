@@ -13,7 +13,6 @@ const CommentSection = ({ blogId }) => {
       );
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
         setComments(data);
       }
     } catch (error) {
@@ -27,12 +26,9 @@ const CommentSection = ({ blogId }) => {
 
   return (
     <div className="bg-white">
-      {comments.map(
-        (comment) => (
-          console.log({ ...comment }),
-          (<CommentCard key={comment._id} {...comment} />)
-        )
-      )}
+      {comments.map((comment) => (
+        <CommentCard key={comment._id} {...comment} />
+      ))}
     </div>
   );
 };
