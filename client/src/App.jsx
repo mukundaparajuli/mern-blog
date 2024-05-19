@@ -16,6 +16,7 @@ import BlogsListDashboard from "./Components/BlogsListDashboard";
 import BlogListByCategory from "./Components/BlogListByCategory";
 import SearchBar from "./Components/SearchBar";
 import BlogListBySearchTerm from "./Components/BlogListBySearchTerm";
+import ProfileCard from "./Components/ProfileCard";
 const LazyBlogPage = React.lazy(() => import("./Components/BlogPage"));
 
 const router = createBrowserRouter([
@@ -52,6 +53,14 @@ const router = createBrowserRouter([
         ),
       },
     ],
+  },
+  {
+    path: "/profile",
+    element: (
+      <UserProtectedRoutes>
+        <ProfileCard />
+      </UserProtectedRoutes>
+    ),
   },
   {
     path: "/register",
@@ -96,9 +105,11 @@ const router = createBrowserRouter([
   {
     path: "/blog/:_id",
     element: (
-      <Suspense fallback="Loading...">
-        <LazyBlogPage />
-      </Suspense>
+      <UserProtectedRoutes>
+        <Suspense fallback="Loading...">
+          <LazyBlogPage />
+        </Suspense>
+      </UserProtectedRoutes>
     ),
   },
 ]);

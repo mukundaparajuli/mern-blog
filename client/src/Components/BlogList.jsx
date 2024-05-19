@@ -6,8 +6,6 @@ import Categories from "./Categories";
 
 const BlogList = () => {
   const [blogs, setBlogs] = useState([]);
-  const user = useContext(UserContext);
-  console.log(user);
   const getBlogs = async () => {
     const response = await fetch("http://localhost:5000/api/blog/blogs", {
       method: "GET",

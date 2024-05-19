@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 const UserProtectedRoutes = ({ children }) => {
   const { userInfo } = useContext(UserContext);
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     if (!userInfo) {
       navigate("/login");
