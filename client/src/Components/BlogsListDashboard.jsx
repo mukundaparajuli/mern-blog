@@ -5,8 +5,8 @@ import SearchBar from "./SearchBar";
 
 const BlogsListDashboard = () => {
   return (
-    <div className="bg-fixed bg-slate-300 min-h-screen">
-      <div className="mx-12">
+    <div className="bg-slate-300 min-h-[100vh]">
+      <div className="mx-auto px-4 sm:px-6 lg:px-8">
         <Header />
         <SearchBar />
         <Categories />

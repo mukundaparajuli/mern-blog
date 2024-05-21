@@ -5,6 +5,7 @@ import DOMPurify from "dompurify";
 import { UserContext } from "../store/userContext";
 import AddComment from "./AddComment";
 import CommentSection from "./CommentSection";
+import Header from "./Header";
 
 const BlogPage = () => {
   const [blog, setBlog] = useState({});
@@ -37,7 +38,9 @@ const BlogPage = () => {
   }, [_id]);
 
   return (
-    <div className="bg-slate-300 w-full flex justify-center items-center flex-col min-h-screen h-full overflow-auto">
+    <div className=" mx-auto px-4 sm:px-6 lg:px-8 bg-slate-300 w-full flex justify-center items-center flex-col min-h-screen h-full overflow-auto ">
+      <Header />
+
       {blog && (
         <div key={_id} className="w-2/3 flex flex-col gap-4 mt-4">
           <div className="font-bold text-4xl text-center my-4">

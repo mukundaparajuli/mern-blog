@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { UserContext } from "../store/userContext";
+import logoutIcon from "../assets/logout.png";
 
 const ProfileCard = () => {
   const { userInfo } = useContext(UserContext);
@@ -9,10 +10,9 @@ const ProfileCard = () => {
   }
 
   return (
-    <div className="fixed right-2 w-1/4 bg-white border-4 border-gray-300 rounded-2xl p-3 z-10 mt-4 shadow-lg">
-      <div className="flex justify-end mb-4"></div>
-      <div className="">
-        <div className="flex m-1 p-4 border-2 border-gray-200 rounded-xl shadow-lg gap-4 items-center">
+    <div className=" w-auto fixed right-2 h-auto bg-white border-2 border-gray-300 rounded-2xl p-2 z-10 mt-4 shadow-lg">
+      <div>
+        <div className="flex m-1 p-2 rounded-xl gap-4 items-center">
           <div>
             <img
               src={userInfo.imageURL}
@@ -25,12 +25,17 @@ const ProfileCard = () => {
             <h2 className="text-lg text-gray-600">{userInfo.email}</h2>
           </div>
         </div>
-        <button
-          className="mt-6 font-bold border p-2 rounded-xl bg-blue-700 w-full text-white border-blue-700 hover:bg-blue-800 transition duration-300"
-          // onClick={handleLogout}
-        >
-          Log Out
-        </button>
+
+        <div className="flex flex-col gap-1 mt-2">
+          <button className="font-bold border p-1 rounded-md bg-gray-500 w-full text-white hover:bg-gray-800 transition duration-300">
+            View Profile
+          </button>
+
+          <button className="font-bold border p-1 rounded-md bg-blue-500 w-full text-white hover:bg-blue-800 transition duration-300 flex items-center justify-center gap-2">
+            <img src={logoutIcon} alt="Log Out Icon" className="h-6 w-6" />
+            Log Out
+          </button>
+        </div>
       </div>
     </div>
   );
