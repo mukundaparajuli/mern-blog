@@ -1,6 +1,6 @@
 import { useContext, useEffect } from "react";
 import { UserContext } from "../store/userContext";
-import Login from "../Components/Login";
+import Login from "../components/Login";
 import { useNavigate } from "react-router-dom";
 
 const UserProtectedRoutes = ({ children }) => {

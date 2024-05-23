@@ -17,8 +17,8 @@ const saveBlog = expressAsyncHandler(async (req, res) => {
             user.savedPosts.push(postId);
             await user.save();
         }
-
-        res.json({ message: 'Post saved successfully', savedPosts: user.savedPosts });
+        const savedBlogs = user.savedPosts;
+        res.json({ savedBlogs });
     } catch (error) {
         console.log(error);
     }
@@ -38,6 +38,23 @@ const getSavedBlog = expressAsyncHandler(async (req, res) => {
     } catch (error) {
         console.log(error);
     }
+});
+
+const removeSavedBlog = expressAsyncHandler(async (req, res) => {
+    try {
+        const { userId } = req.params;
+        const { postId } = req.body;
+        const user = await User.findById(userId);
+
+        if (!user) {
+            res.status(404).send('User not found!');
+        }
+
+        user.savedPosts = user.savedPosts.filter((savedPostId) => savedPostId.toString() !== postId);
+        await user.save();
+    } catch (error) {
+        console.log(error);
+    }
 })
 
-module.exports = { saveBlog, getSavedBlog };
+module.exports = { saveBlog, getSavedBlog, removeSavedBlog };

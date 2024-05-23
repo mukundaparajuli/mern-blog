@@ -1,12 +1,14 @@
 import React, { useContext, useState, useEffect } from "react";
 import { UserContext } from "../store/userContext";
 import Header from "./Header";
+import BlogPost from "../components/BlogPost";
 
 const ProfilePage = () => {
   const { userInfo } = useContext(UserContext);
   const [editProfileSelected, setEditProfileSelected] = useState(false);
   const [username, setUsername] = useState(userInfo.username);
   const [email, setEmail] = useState(userInfo.email);
+  const [savedPosts, setSavedPosts] = useState([]);
 
   useEffect(() => {
     setUsername(userInfo.username);
@@ -42,6 +44,28 @@ const ProfilePage = () => {
     }
     setEditProfileSelected(false);
   };
+
+  const fetchSavedPosts = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/saved/savedPost/${userInfo.userId}`,
+        {
+          method: "GET",
+        }
+      );
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        setSavedPosts(data.savedPosts);
+      }
+    } catch (error) {
+      console.error("Error fetching saved posts:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchSavedPosts();
+  }, []);
 
   return (
     <>
@@ -108,8 +132,10 @@ const ProfilePage = () => {
             </div>
           )}
         </div>
-        <div className="w-4/5 relative left-1 ml-[20%] p-4">
+        <div className="w-4/5 relative left-1 ml-[20%] p-4 flex flex-col items-center">
           <div className="font-bold text-3xl">Saved Blogs:</div>
+          {savedPosts.length > 1 &&
+            savedPosts.map((post) => <BlogPost key={post._id} {...post} />)}
         </div>
       </div>
     </>

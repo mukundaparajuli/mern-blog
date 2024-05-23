@@ -1,6 +1,6 @@
 import { useContext, useEffect } from "react";
 import { UserContext } from "../store/userContext";
-import BlogList from "../Components/BlogList";
+import BlogList from "../components/BlogList";
 import { useNavigate } from "react-router-dom";
 
 const AdminProtectedRoute = ({ children }) => {
