@@ -1,16 +1,24 @@
 import React, { useContext } from "react";
 import { UserContext } from "../store/userContext";
 import logoutIcon from "../assets/logout.png";
+import { useNavigate } from "react-router-dom";
 
 const ProfileCard = () => {
+  const navigate = useNavigate();
   const { userInfo } = useContext(UserContext);
 
   if (!userInfo) {
-    return null; // or a loading spinner, etc.
+    return null;
   }
+  const moveToAdminDashboard = () => {
+    navigate("/admin");
+  };
 
+  const moveToProfilePage = () => {
+    navigate("/profile");
+  };
   return (
-    <div className=" w-auto fixed right-2 h-auto bg-white border-2 border-gray-300 rounded-2xl p-2 z-10 mt-4 shadow-lg">
+    <div className=" w-auto fixed right-2 h-auto bg-white border-2 border-gray-300 rounded-2xl px-6 p-2 z-10 mt-4 shadow-lg">
       <div>
         <div className="flex m-1 p-2 rounded-xl gap-4 items-center">
           <div>
@@ -27,7 +35,10 @@ const ProfileCard = () => {
         </div>
 
         <div className="flex flex-col gap-1 mt-2">
-          <button className="font-bold border p-1 rounded-md bg-gray-500 w-full text-white hover:bg-gray-800 transition duration-300">
+          <button
+            className="font-bold border p-1 rounded-md bg-gray-500 w-full text-white hover:bg-gray-800 transition duration-300"
+            onClick={() => moveToProfilePage()}
+          >
             View Profile
           </button>
 
@@ -35,6 +46,15 @@ const ProfileCard = () => {
             <img src={logoutIcon} alt="Log Out Icon" className="h-6 w-6" />
             Log Out
           </button>
+          {console.log(userInfo)}
+          {userInfo.isAdmin && (
+            <button
+              className="font-bold border p-1 rounded-md bg-gray-500 w-full text-white hover:bg-gray-800 transition duration-300"
+              onClick={() => moveToAdminDashboard()}
+            >
+              Admin Dashboard
+            </button>
+          )}
         </div>
       </div>
     </div>

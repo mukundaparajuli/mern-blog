@@ -51,7 +51,7 @@ const Login = () => {
           className="w-1/2 rounded-l-xl"
         />
         <form
-          className="bg-green text-black p-4 flex flex-col gap-2 w-full"
+          className="bg-green text-black p-4 flex flex-col gap-2 w-1/2"
           onSubmit={handleLogin}
         >
           <div className="font-bold text-4xl text-start">Sign In</div>

@@ -17,6 +17,7 @@ import BlogListByCategory from "./Components/BlogListByCategory";
 import SearchBar from "./Components/SearchBar";
 import BlogListBySearchTerm from "./Components/BlogListBySearchTerm";
 import ProfileCard from "./Components/ProfileCard";
+import ProfilePage from "./Components/ProfilePage";
 const LazyBlogPage = React.lazy(() => import("./Components/BlogPage"));
 
 const router = createBrowserRouter([
@@ -58,7 +59,7 @@ const router = createBrowserRouter([
     path: "/profile",
     element: (
       <UserProtectedRoutes>
-        <ProfileCard />
+        <ProfilePage />
       </UserProtectedRoutes>
     ),
   },
