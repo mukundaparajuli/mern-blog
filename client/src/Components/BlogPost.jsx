@@ -7,11 +7,10 @@ import { UserContext } from "../store/userContext";
 
 const BlogPost = ({ title, blogDescription, coverImage, _id }) => {
   const navigate = useNavigate();
-  const [isSaved, setIsSaved] = useState(false);
+  const [isSaved, setIsSaved] = useState(true);
   const { userInfo } = useContext(UserContext);
 
   useEffect(() => {
-    // Check if the post is saved when userInfo or _id changes
     const fetchSavedStatus = async () => {
       if (!userInfo || !_id) return;
 
@@ -22,8 +21,9 @@ const BlogPost = ({ title, blogDescription, coverImage, _id }) => {
         const data = await response.json();
         if (data.savedPosts.includes(_id)) {
           setIsSaved(true);
+          console.log(data.savedPosts);
         } else {
-          setIsSaved(false); // Ensure isSaved is false if the post is not saved
+          setIsSaved(false);
         }
       } catch (error) {
         console.error("Error fetching saved posts:", error);
@@ -31,7 +31,7 @@ const BlogPost = ({ title, blogDescription, coverImage, _id }) => {
     };
 
     fetchSavedStatus();
-  }, [userInfo, _id]);
+  }, [userInfo, _id]); // Add userInfo and _id as dependencies
 
   const handleBlogPage = (_id) => {
     navigate("/blog/" + _id);
@@ -62,7 +62,7 @@ const BlogPost = ({ title, blogDescription, coverImage, _id }) => {
       const response = await fetch(
         `http://localhost:5000/api/saved/removePost/${userInfo.userId}`,
         {
-          method: "POST",
+          method: "DELETE",
           headers: {
             "Content-Type": "application/json",
           },
@@ -100,11 +100,11 @@ const BlogPost = ({ title, blogDescription, coverImage, _id }) => {
             Read More
           </button>
           {isSaved ? (
-            <button className="w-1/12" onClick={() => handleUnsavePost()}>
+            <button className="w-1/12" onClick={handleUnsavePost}>
               <img src={saved} alt="Unsave" className="h-8 w-8 py-1 mt-8" />
             </button>
           ) : (
-            <button className="w-1/12" onClick={() => handleSavePost()}>
+            <button className="w-1/12" onClick={handleSavePost}>
               <img src={save} alt="Save" className="h-8 w-8 py-1 mt-8" />
             </button>
           )}

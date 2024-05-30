@@ -5,13 +5,11 @@ import SearchBar from "./SearchBar";
 
 const BlogsListDashboard = () => {
   return (
-    <div className="bg-slate-300 min-h-[100vh]">
-      <div className="mx-auto px-4 sm:px-6 lg:px-8">
-        <Header />
-        <SearchBar />
-        <Categories />
-        <Outlet />
-      </div>
+    <div className=" mx-auto px-4 sm:px-6 lg:px-8 bg-slate-300 w-full min-h-screen h-full overflow-auto ">
+      <Header />
+      <SearchBar />
+      <Categories />
+      <Outlet />
     </div>
   );
 };
