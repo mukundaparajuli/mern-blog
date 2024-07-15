@@ -6,6 +6,7 @@ const databaseConnection = require("./config/databaseConnection");
 const cookieParser = require("cookie-parser");
 const port = process.env.PORT;
 const path = require('path')
+const bodyParser = require("body-parser")
 
 databaseConnection();
 app.use(cookieParser());
@@ -17,6 +18,8 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 app.use("/api/blog/", require("./routes/blog.route"));
 app.use("/api/auth/", require("./routes/auth.route"));

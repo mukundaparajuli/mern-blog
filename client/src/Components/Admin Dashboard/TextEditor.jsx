@@ -8,8 +8,19 @@ const TextEditor = () => {
   const [blogDescription, setBlogDescription] = useState("");
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
+  const coverImageRef = useRef(null);
   const handleCreatePost = async (e) => {
     e.preventDefault();
+    const file = coverImageRef.current.files[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("blogDescription", blogDescription);
+    formData.append("author", userInfo?.username);
+    formData.append("category", category);
+    formData.append("coverImage", file);
+
     try {
       const response = await fetch("http://localhost:5000/api/blog/blogs", {
         method: "POST",
@@ -17,13 +28,9 @@ const TextEditor = () => {
           "Content-Type": "application/json",
         },
         credentials: "include",
-        body: JSON.stringify({
-          title: title,
-          blogDescription: blogDescription,
-          author: userInfo?.username,
-          category: category,
-        }),
+        body: formData,
       });
+
       if (response.ok) {
         const data = await response.json();
         console.log(data);
@@ -83,6 +90,7 @@ const TextEditor = () => {
             id="coverImage"
             className="w-full border p-2 my-2 "
             placeholder="Select an Image as Cover Image"
+            ref={coverImageRef}
           />
         </div>
 
