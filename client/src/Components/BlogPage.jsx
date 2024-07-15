@@ -10,10 +10,8 @@ import Header from "./Header";
 const BlogPage = () => {
   const [blog, setBlog] = useState({});
   const { _id } = useParams();
-  const { userInfo } = useContext(UserContext);
+  // const { userInfo } = useContext(UserContext);
   const [showComments, setShowComments] = useState(false);
-
-  console.log(_id);
 
   useEffect(() => {
     const getBlog = async () => {
@@ -26,7 +24,6 @@ const BlogPage = () => {
         );
         if (response.ok) {
           const data = await response.json();
-          console.log(data.blog);
           setBlog(data.blog);
         }
       } catch (err) {
@@ -38,46 +35,45 @@ const BlogPage = () => {
   }, [_id]);
 
   return (
-    <div className=" mx-auto px-4 sm:px-6 lg:px-8 bg-slate-300 w-full flex justify-center items-center flex-col min-h-screen h-full overflow-auto ">
+    <div className="min-h-screen bg-gray-100 flex flex-col items-center py-6">
       <Header />
-
       {blog && (
-        <div key={_id} className="w-2/3 flex flex-col gap-4 mt-4">
-          <div className="font-bold text-4xl text-center my-4">
+        <div className="bg-white shadow-lg rounded-lg w-11/12 lg:w-2/3 my-6 p-6">
+          <div className="text-center text-4xl font-bold my-4">
             {blog.title}
           </div>
-          <div>
+          <div className="flex justify-center my-4">
             <img
               src={blog.coverImage}
               alt="cover image"
-              className="rounded-xl p-1 my-4 w-full h-auto"
+              className="rounded-lg w-full lg:w-2/3"
             />
           </div>
           <div
-            className="text-lg font-semibold text-justify my-4"
+            className="text-lg text-justify my-4"
             dangerouslySetInnerHTML={{
               __html: DOMPurify.sanitize(blog.blogDescription),
             }}
           ></div>
-          <div className="my-4 py-4">
-            {blog.author ? (
-              <div className="font-bold text-md italic">{blog?.author}</div>
-            ) : (
-              <div className="font-bold text-lg italic">Mukunda Parajuli</div>
-            )}
+          <div className="flex justify-between items-center my-4 py-4 border-t border-gray-200">
+            <div className="font-bold text-md italic">
+              {blog.author || "Mukunda Parajuli"}
+            </div>
             <div className="font-semibold text-md italic">
-              {moment(blog?.date).format("MMM Do YY")}
+              {moment(blog.date).format("MMM Do YY")}
             </div>
           </div>
         </div>
       )}
-      <div className="w-2/3 m-4">
+      <div className="w-11/12 lg:w-2/3">
         <AddComment blogId={_id} />
         <div
-          className="flex justify-between items-center w-full bg-white my-2 p-4 rounded-md font-bold text-lg cursor-pointer hover:bg-gray-100 transition-all"
+          className="flex justify-between items-center w-full bg-white my-2 p-4 rounded-md shadow cursor-pointer hover:bg-gray-100 transition-all"
           onClick={() => setShowComments(!showComments)}
         >
-          <div>{showComments ? "Hide" : "View"} Comments</div>
+          <div className="font-bold text-lg">
+            {showComments ? "Hide" : "View"} Comments
+          </div>
           <button
             className={`transform transition-transform ${
               showComments ? "rotate-180" : "rotate-0"

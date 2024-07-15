@@ -5,6 +5,7 @@ const cors = require("cors");
 const databaseConnection = require("./config/databaseConnection");
 const cookieParser = require("cookie-parser");
 const port = process.env.PORT;
+const path = require('path')
 
 databaseConnection();
 app.use(cookieParser());
@@ -15,6 +16,7 @@ app.use(cors({
     allowedHeaders: ['Content-Type']
 }));
 app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use("/api/blog/", require("./routes/blog.route"));
 app.use("/api/auth/", require("./routes/auth.route"));

@@ -1,5 +1,8 @@
 const expressAsyncHandler = require("express-async-handler");
 const Blog = require("../models/blog.model");
+const { uploadToCloudinary } = require("../config/cloudinary");
+const userModel = require("../models/user.model");
+const blogModel = require("../models/blog.model");
 
 const getAllBlogs = expressAsyncHandler(async (req, res) => {
     try {
@@ -13,22 +16,50 @@ const getAllBlogs = expressAsyncHandler(async (req, res) => {
 });
 
 const createBlog = expressAsyncHandler(async (req, res) => {
-    const { title, blogDescription, coverImage, author, category } = req.body;
-    console.log(req.body);
+    const { title, blogDescription, author, category } = req.body;
+    const coverImage = req.file;
+    const coverImagePath = coverImage?.path;
+
+    console.log("File:", coverImage);
+    console.log("Body:", req.body);
+
     if (!title || !blogDescription) {
         return res.status(400).json({ message: "Missing required fields" });
     }
 
+    let cloudinaryUrlCover = { url: null };
+
+    if (coverImage) {
+        try {
+            cloudinaryUrlCover = await uploadToCloudinary(coverImagePath);
+        } catch (error) {
+            console.error("Error uploading image to Cloudinary:", error);
+            return res.status(500).json({ message: "Error uploading image to Cloudinary" });
+        }
+    }
+
+    const imageURL = cloudinaryUrlCover?.url || "https://bit.ly/blogImg";
+
     try {
-        const blog = await Blog.create({ title, blogDescription, coverImage, author, category });
+        const blog = await Blog.create({
+            title,
+            blogDescription,
+            coverImage: imageURL,
+            author,
+            category,
+        });
+
         res.status(201).cookie("hi", "hello", {
             httpOnly: true,
         }).json({ blog });
     } catch (err) {
-        console.log("Error occurred: ", err);
+        console.error("Error occurred while creating blog:", err);
         res.status(500).json({ message: "Internal Server Error" });
     }
 });
+
+
+
 
 const getOneBlog = expressAsyncHandler(async (req, res) => {
     try {
