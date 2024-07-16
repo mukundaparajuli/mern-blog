@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect, useRef } from "react";
 import { UserContext } from "../store/userContext";
 import Header from "./Header";
 import BlogPost from "../components/BlogPost";
@@ -9,6 +9,7 @@ const ProfilePage = () => {
   const [username, setUsername] = useState(userInfo.username);
   const [email, setEmail] = useState(userInfo.email);
   const [savedPosts, setSavedPosts] = useState([]);
+  const avatarRef = useRef();
 
   useEffect(() => {
     setUsername(userInfo.username);
@@ -25,6 +26,15 @@ const ProfilePage = () => {
 
   const handleUpdateProfile = async () => {
     try {
+      const file = avatarRef.current.files[0];
+
+      const formData = new FormData();
+      if (!file) {
+        formData.append("avatar", null);
+      }
+      formData.append("avatar", file);
+      formData.append("username", username);
+      formData.append("email", email);
       const response = await fetch(
         "http://localhost:5000/api/user/updateprofile/" + userInfo.userId,
         {
@@ -32,7 +42,7 @@ const ProfilePage = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ username, email }),
+          body: formData,
         }
       );
       if (response.ok) {
@@ -92,43 +102,59 @@ const ProfilePage = () => {
               </div>
             </>
           )}
-
           {editProfileSelected && (
-            <div className="flex flex-col gap-3">
-              <div className="flex flex-col">
-                <label htmlFor="username" className="font-semibold text-lg">
-                  Username
+            <div>
+              <div>
+                <label
+                  htmlFor="uploadAvatar"
+                  className="text-green-600 underline"
+                >
+                  Upload New Avatar
                 </label>
                 <input
-                  type="text"
-                  name="username"
-                  id="username"
-                  className="py-1 px-2 border border-black rounded-md"
-                  value={username}
-                  onChange={handleUsernameChange}
+                  type="file"
+                  name="uploadAvatar"
+                  id="uploadAvatar"
+                  className="hidden"
+                  ref={avatarRef}
                 />
               </div>
+              <div className="flex flex-col gap-3">
+                <div className="flex flex-col">
+                  <label htmlFor="username" className="font-semibold text-lg">
+                    Username
+                  </label>
+                  <input
+                    type="text"
+                    name="username"
+                    id="username"
+                    className="py-1 px-2 border border-black rounded-md"
+                    value={username}
+                    onChange={handleUsernameChange}
+                  />
+                </div>
 
-              <div className="flex flex-col">
-                <label htmlFor="email" className="font-semibold text-lg">
-                  Email
-                </label>
-                <input
-                  type="text"
-                  name="email"
-                  id="email"
-                  className="py-1 px-2 border border-black rounded-md"
-                  value={email}
-                  onChange={handleEmailChange}
-                />
+                <div className="flex flex-col">
+                  <label htmlFor="email" className="font-semibold text-lg">
+                    Email
+                  </label>
+                  <input
+                    type="text"
+                    name="email"
+                    id="email"
+                    className="py-1 px-2 border border-black rounded-md"
+                    value={email}
+                    onChange={handleEmailChange}
+                  />
+                </div>
+
+                <button
+                  className="mt-4 font-semibold text-lg bg-gray-300 border border-black px-2 py-1 rounded-md hover:bg-gray-500"
+                  onClick={handleUpdateProfile}
+                >
+                  Update Profile
+                </button>
               </div>
-
-              <button
-                className="mt-4 font-semibold text-lg bg-gray-300 border border-black px-2 py-1 rounded-md hover:bg-gray-500"
-                onClick={handleUpdateProfile}
-              >
-                Update Profile
-              </button>
             </div>
           )}
         </div>
