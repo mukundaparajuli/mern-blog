@@ -17,29 +17,39 @@ const updateProfile = expressAsyncHandler(async (req, res) => {
         try {
             const cloudinaryUrlAvatar = await uploadToCloudinary(avatarPath);
             avatarUrl = cloudinaryUrlAvatar.url;
+            const user = await User.findByIdAndUpdate(
+                id,
+                { username, email, imageURL: avatarUrl },
+                { new: true, runValidators: true }
+            );
+
+            res.json({
+                message: "User Updated Successfully!",
+                user
+            })
         } catch (error) {
             console.error("Error uploading image to Cloudinary:", error);
             return res.status(500).json({ message: "Error uploading image to Cloudinary" });
         }
     } else {
-        avatarUrl = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png";
-    }
 
-    try {
-        const user = await User.findByIdAndUpdate(
-            id,
-            { username, email, imageURL: avatarUrl },
-            { new: true, runValidators: true }
-        );
 
-        if (!user) {
-            return res.status(404).json({ message: 'User not found' });
+        try {
+            const user = await User.findByIdAndUpdate(
+                id,
+                { username, email },
+                { new: true, runValidators: true }
+            );
+
+            if (!user) {
+                return res.status(404).json({ message: 'User not found' });
+            }
+
+            res.json({ message: 'Profile updated successfully', user });
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: 'Server error' });
         }
-
-        res.json({ message: 'Profile updated successfully', user });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Server error' });
     }
 });
 

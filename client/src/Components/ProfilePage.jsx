@@ -4,13 +4,14 @@ import Header from "./Header";
 import BlogPost from "../components/BlogPost";
 
 const ProfilePage = () => {
-  const { userInfo } = useContext(UserContext);
+  const { userInfo, setUserInfo } = useContext(UserContext);
   const [editProfileSelected, setEditProfileSelected] = useState(false);
   const [username, setUsername] = useState(userInfo.username);
   const [email, setEmail] = useState(userInfo.email);
   const [savedPosts, setSavedPosts] = useState([]);
   const avatarRef = useRef();
 
+  console.log(userInfo);
   useEffect(() => {
     setUsername(userInfo.username);
     setEmail(userInfo.email);
@@ -45,6 +46,16 @@ const ProfilePage = () => {
       if (response.ok) {
         const data = await response.json();
         console.log(data);
+        setUserInfo({
+          email: data.user.email,
+          imageURL: data.user.imageURL,
+          isAdmin: userInfo.isAdmin,
+          success: userInfo.success,
+          token: userInfo.token,
+          userId: userInfo.userId,
+          username: data.user.username,
+        });
+        console.log(userInfo);
       }
     } catch (error) {
       console.log(error);
