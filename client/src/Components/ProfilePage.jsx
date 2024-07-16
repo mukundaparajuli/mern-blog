@@ -39,9 +39,6 @@ const ProfilePage = () => {
         "http://localhost:5000/api/user/updateprofile/" + userInfo.userId,
         {
           method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
           body: formData,
         }
       );
