@@ -1,8 +1,7 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import moment from "moment";
 import DOMPurify from "dompurify";
-import { UserContext } from "../store/userContext";
 import AddComment from "./AddComment";
 import CommentSection from "./CommentSection";
 import Header from "./Header";

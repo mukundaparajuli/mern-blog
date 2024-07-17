@@ -10,17 +10,18 @@ const saveBlog = expressAsyncHandler(async (req, res) => {
         const user = await User.findById(userId);
 
         if (!user) {
-            res.status(404).send("User not found!");
+            return res.status(404).send("User not found!");
         }
-
+        console.log("Post Id: ", postId)
         if (!user.savedPosts.includes(postId)) {
-            user.savedPosts.push(postId);
+            const newList = user.savedPosts.push(postId);
             await user.save();
         }
-        const savedBlogs = user.savedPosts;
-        res.json({ savedBlogs });
+
+        res.json({ savedBlogs: user.savedPosts });
     } catch (error) {
-        console.log(error);
+        console.error(error);
+        res.status(500).send("Server error");
     }
 });
 
@@ -31,12 +32,13 @@ const getSavedBlog = expressAsyncHandler(async (req, res) => {
         const user = await User.findById(userId).populate("savedPosts");
 
         if (!user) {
-            res.status(404).send("User not found!");
+            return res.status(404).send("User not found!");
         }
 
-        res.status(201).json({ savedPosts: user.savedPosts });
+        res.json({ savedPosts: user.savedPosts });
     } catch (error) {
-        console.log(error);
+        console.error(error);
+        res.status(500).send("Server error");
     }
 });
 
@@ -44,17 +46,22 @@ const removeSavedBlog = expressAsyncHandler(async (req, res) => {
     try {
         const { userId } = req.params;
         const { postId } = req.body;
+
         const user = await User.findById(userId);
 
         if (!user) {
-            res.status(404).send('User not found!');
+            return res.status(404).send("User not found!");
         }
 
         user.savedPosts = user.savedPosts.filter((savedPostId) => savedPostId.toString() !== postId);
         await user.save();
+        console.log(user.savedPosts)
+
+        res.json({ savedBlogs: user.savedPosts });
     } catch (error) {
-        console.log(error);
+        console.error(error);
+        res.status(500).send("Server error");
     }
-})
+});
 
 module.exports = { saveBlog, getSavedBlog, removeSavedBlog };

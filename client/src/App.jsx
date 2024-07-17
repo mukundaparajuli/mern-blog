@@ -1,24 +1,22 @@
 import React, { Suspense } from "react";
-import Register from "./components/Register";
-import Login from "./components/Login";
-import BlogList from "./components/BlogList";
+import Register from "./Components/Register";
+import Login from "./Components/Login";
+import BlogList from "./Components/BlogList";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import Dashboard from "./components/Admin Dashboard/Dashboard";
-import TextEditor from "./components/Admin Dashboard/TextEditor";
-import Users from "./components/Admin Dashboard/Users";
-import PostAnalysis from "./components/Admin Dashboard/PostAnalysis";
+import Dashboard from "./Components/Admin Dashboard/Dashboard";
+import TextEditor from "./Components/Admin Dashboard/TextEditor";
+import Users from "./Components/Admin Dashboard/Users";
+import PostAnalysis from "./Components/Admin Dashboard/PostAnalysis";
 // import ViewPosts from "./components/Admin Dashboard/ViewPosts";
 import AdminProtectedRoute from "./utils/AdminProtectedRoute";
 import UserProtectedRoutes from "./utils/UserProtectedRoutes";
-import BlogPage from "./components/BlogPage";
-import GetAllBlogs from "./components/Admin Dashboard/GetAllBlogs";
-import BlogsListDashboard from "./components/BlogsListDashboard";
-import BlogListByCategory from "./components/BlogListByCategory";
-import SearchBar from "./components/SearchBar";
-import BlogListBySearchTerm from "./components/BlogListBySearchTerm";
-import ProfileCard from "./components/ProfileCard";
-import ProfilePage from "./components/ProfilePage";
-const LazyBlogPage = React.lazy(() => import("./components/BlogPage"));
+import BlogPage from "./Components/BlogPage";
+import GetAllBlogs from "./Components/Admin Dashboard/GetAllBlogs";
+import BlogsListDashboard from "./Components/BlogsListDashboard";
+import BlogListByCategory from "./Components/BlogListByCategory";
+import BlogListBySearchTerm from "./Components/BlogListBySearchTerm";
+import ProfilePage from "./Components/ProfilePage";
+const LazyBlogPage = React.lazy(() => import("./Components/BlogPage"));
 
 const router = createBrowserRouter([
   {

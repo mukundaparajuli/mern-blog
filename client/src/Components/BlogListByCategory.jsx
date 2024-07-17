@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import BlogPost from "./BlogPost";
 
 const BlogListByCategory = () => {
   let [blogsByCategory, setBlogsByCategory] = useState([]);

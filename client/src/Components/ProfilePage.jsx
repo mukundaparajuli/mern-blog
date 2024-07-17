@@ -1,7 +1,6 @@
 import { useContext, useState, useEffect, useRef } from "react";
 import { UserContext } from "../store/userContext";
-import Header from "./Header";
-import BlogPost from "../components/BlogPost";
+import BlogPost from "./BlogPost";
 
 const ProfilePage = () => {
   const { userInfo, setUserInfo } = useContext(UserContext);
@@ -87,12 +86,12 @@ const ProfilePage = () => {
 
   return (
     <>
-      <div className="flex w-[100vw] relative">
+      <div className="flex w-[100vw] relative ">
         <div className="p-4 m-4 border-r-2 border-gray-600 min-h-[100vh] w-1/5 flex flex-col items-center gap-6 fixed">
           <img
             src={userInfo.imageURL}
             alt="Profile Image"
-            className="rounded-full border-2 border-black h-32 w-32"
+            className="rounded-full border-2 border-black h-32 w-32 object-cover"
           />
           {!editProfileSelected && (
             <>

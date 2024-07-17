@@ -1,8 +1,5 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import BlogPost from "./BlogPost";
-import Header from "./Header";
-import { UserContext } from "../store/userContext";
-import Categories from "./Categories";
 
 const BlogList = () => {
   const [blogs, setBlogs] = useState([]);

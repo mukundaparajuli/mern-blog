@@ -11,8 +11,7 @@ const TextEditor = () => {
   const coverImageRef = useRef(null);
   const handleCreatePost = async (e) => {
     e.preventDefault();
-    const file = coverImageRef.current.files[0];
-    if (!file) return;
+    let file = coverImageRef.current.files[0];
 
     const formData = new FormData();
     formData.append("title", title);
@@ -24,9 +23,6 @@ const TextEditor = () => {
     try {
       const response = await fetch("http://localhost:5000/api/blog/blogs", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
         credentials: "include",
         body: formData,
       });

@@ -1,5 +1,5 @@
 import DOMPurify from "dompurify";
-import React, { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import save from "../assets/save.png";
 import saved from "../assets/saved.png";
@@ -7,7 +7,7 @@ import { UserContext } from "../store/userContext";
 
 const BlogPost = ({ title, blogDescription, coverImage, _id }) => {
   const navigate = useNavigate();
-  const [isSaved, setIsSaved] = useState(true);
+  const [isSaved, setIsSaved] = useState(false);
   const { userInfo } = useContext(UserContext);
 
   useEffect(() => {
@@ -19,22 +19,20 @@ const BlogPost = ({ title, blogDescription, coverImage, _id }) => {
           `http://localhost:5000/api/saved/savedPost/${userInfo.userId}`
         );
         const data = await response.json();
-        if (data.savedPosts.includes(_id)) {
-          setIsSaved(true);
-          console.log(data.savedPosts);
-        } else {
-          setIsSaved(false);
-        }
+        setIsSaved(data.savedPosts.includes(_id));
+        console.log("yep this blog is saved: ", _id);
+        console.log(data.savedPosts);
+        console.log("isSaved status: ", isSaved);
       } catch (error) {
         console.error("Error fetching saved posts:", error);
       }
     };
 
     fetchSavedStatus();
-  }, [userInfo, _id]); // Add userInfo and _id as dependencies
+  }, [userInfo, _id]);
 
   const handleBlogPage = (_id) => {
-    navigate("/blog/" + _id);
+    navigate(`/blog/${_id}`);
   };
 
   const handleSavePost = async () => {
@@ -99,6 +97,7 @@ const BlogPost = ({ title, blogDescription, coverImage, _id }) => {
           >
             Read More
           </button>
+          {console.log(isSaved)}
           {isSaved ? (
             <button className="w-1/12" onClick={handleUnsavePost}>
               <img src={saved} alt="Unsave" className="h-8 w-8 py-1 mt-8" />

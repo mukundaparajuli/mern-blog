@@ -32,8 +32,6 @@ const updateProfile = expressAsyncHandler(async (req, res) => {
             return res.status(500).json({ message: "Error uploading image to Cloudinary" });
         }
     } else {
-
-
         try {
             const user = await User.findByIdAndUpdate(
                 id,
@@ -55,3 +53,19 @@ const updateProfile = expressAsyncHandler(async (req, res) => {
 
 
 module.exports = { updateProfile };
+
+
+
+const fetchData = async () => {
+    try {
+        const response = await fetch("http://localhost:5000/products/products", {
+            method: "GET",
+        })
+        if (response.ok) {
+            const data = await response.json();
+            console.log(data)
+        }
+    } catch (e) {
+        console.log(e);
+    }
+}

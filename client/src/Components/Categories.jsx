@@ -4,11 +4,10 @@ import { NavLink, useNavigate } from "react-router-dom";
 const Categories = () => {
   const navigate = useNavigate();
   const categories = [
-    "Technology",
-    "Travel",
-    "Food",
-    "Fashion",
-    "Health & Fitness",
+    "React JS",
+    "Node JS",
+    "Express JS",
+    "Mongo DB",
     "Lifestyle",
     "Finance",
     "Education",

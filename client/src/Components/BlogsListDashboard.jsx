@@ -2,6 +2,7 @@ import Header from "./Header";
 import Categories from "./Categories";
 import { Outlet } from "react-router-dom";
 import SearchBar from "./SearchBar";
+import Footer from "./Footer";
 
 const BlogsListDashboard = () => {
   return (
@@ -10,6 +11,7 @@ const BlogsListDashboard = () => {
       <SearchBar />
       <Categories />
       <Outlet />
+      <Footer />
     </div>
   );
 };
