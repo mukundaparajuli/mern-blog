@@ -5,7 +5,7 @@ const { validateAdmin } = require("../middlewares/validateAdmin");
 const upload = require("../middlewares/multer");
 const router = express.Router();
 
-router.get('/blogs', validateJWT, getAllBlogs);
+router.get('/blogs', getAllBlogs);
 router.get('/blogs/:blogid', getOneBlog);
 router.post('/blogs', validateJWT, validateAdmin, upload.single('coverImage'), createBlog);
 router.delete('/blogs/:blogid', validateJWT, validateAdmin, deleteBlog);

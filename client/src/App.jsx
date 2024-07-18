@@ -16,6 +16,7 @@ import BlogsListDashboard from "./Components/BlogsListDashboard";
 import BlogListByCategory from "./Components/BlogListByCategory";
 import BlogListBySearchTerm from "./Components/BlogListBySearchTerm";
 import ProfilePage from "./Components/ProfilePage";
+import useSavedBlogs from "./hooks/useSavedBlogs";
 const LazyBlogPage = React.lazy(() => import("./Components/BlogPage"));
 
 const router = createBrowserRouter([
@@ -114,6 +115,8 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+  // const blogs = useSavedBlogs();
+  // console.log(blogs);
   return (
     <div>
       <RouterProvider router={router} />
