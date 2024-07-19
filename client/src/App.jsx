@@ -7,7 +7,6 @@ import Dashboard from "./Components/Admin Dashboard/Dashboard";
 import TextEditor from "./Components/Admin Dashboard/TextEditor";
 import Users from "./Components/Admin Dashboard/Users";
 import PostAnalysis from "./Components/Admin Dashboard/PostAnalysis";
-// import ViewPosts from "./components/Admin Dashboard/ViewPosts";
 import AdminProtectedRoute from "./utils/AdminProtectedRoute";
 import UserProtectedRoutes from "./utils/UserProtectedRoutes";
 import BlogPage from "./Components/BlogPage";
@@ -16,41 +15,25 @@ import BlogsListDashboard from "./Components/BlogsListDashboard";
 import BlogListByCategory from "./Components/BlogListByCategory";
 import BlogListBySearchTerm from "./Components/BlogListBySearchTerm";
 import ProfilePage from "./Components/ProfilePage";
-import useSavedBlogs from "./hooks/useSavedBlogs";
+import Footer from "./Components/Footer";
 const LazyBlogPage = React.lazy(() => import("./Components/BlogPage"));
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: (
-      <UserProtectedRoutes>
-        <BlogsListDashboard />
-      </UserProtectedRoutes>
-    ),
+    element: <BlogsListDashboard />,
     children: [
       {
         path: "/",
-        element: (
-          <UserProtectedRoutes>
-            <BlogList />
-          </UserProtectedRoutes>
-        ),
+        element: <BlogList />,
       },
       {
         path: "/category/:categories",
-        element: (
-          <UserProtectedRoutes>
-            <BlogListByCategory />
-          </UserProtectedRoutes>
-        ),
+        element: <BlogListByCategory />,
       },
       {
         path: "/search/:searchTerm",
-        element: (
-          <UserProtectedRoutes>
-            <BlogListBySearchTerm />
-          </UserProtectedRoutes>
-        ),
+        element: <BlogListBySearchTerm />,
       },
     ],
   },
@@ -105,18 +88,14 @@ const router = createBrowserRouter([
   {
     path: "/blog/:_id",
     element: (
-      <UserProtectedRoutes>
-        <Suspense fallback="Loading...">
-          <LazyBlogPage />
-        </Suspense>
-      </UserProtectedRoutes>
+      <Suspense fallback="Loading...">
+        <LazyBlogPage />
+      </Suspense>
     ),
   },
 ]);
 
 function App() {
-  // const blogs = useSavedBlogs();
-  // console.log(blogs);
   return (
     <div>
       <RouterProvider router={router} />

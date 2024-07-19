@@ -76,12 +76,14 @@ const ProfilePage = () => {
           {!editProfileSelected && (
             <>
               <div>
-                <div className="text-start font-bold text-4xl">
+                <div className="text-start font-semibold text-4xl">
                   {userInfo.username}
                 </div>
-                <div className="text-start text-xl">{userInfo.email}</div>
+                <div className="text-start text-md italic">
+                  {userInfo.email}
+                </div>
                 <button
-                  className="mt-4 font-semibold text-lg bg-gray-300 border border-black px-2 py-1 rounded-md hover:bg-gray-500"
+                  className="mt-4 font-semibold text-md bg-gray-300 border border-black px-2 py-1 rounded-md hover:bg-gray-500"
                   onClick={() => setEditProfileSelected(true)}
                 >
                   Edit Profile
@@ -145,10 +147,14 @@ const ProfilePage = () => {
             </div>
           )}
         </div>
+
         <div className="w-4/5 relative left-1 ml-[20%] p-4 flex flex-col items-center">
-          <div className="font-bold text-3xl">Saved Blogs:</div>
-          {savedPosts.length > 0 &&
-            savedPosts.map((post) => <BlogPost key={post._id} {...post} />)}
+          <div className="font-bold text-3xl">Saved Blogs</div>
+          {savedPosts.length > 0 ? (
+            savedPosts.map((post) => <BlogPost key={post._id} {...post} />)
+          ) : (
+            <p>No saved posts!</p>
+          )}
         </div>
       </div>
     </>

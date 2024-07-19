@@ -16,7 +16,7 @@ const useSavedBlogs = () => {
         if (response.ok) {
           const data = await response.json();
           console.log(data.savedPosts);
-          setSavedBlogUrl(data.savedPosts); // Assuming data.savedPosts is the array of saved blog IDs
+          setSavedBlogUrl(data.savedPosts);
         }
       } catch (err) {
         console.log(err);
@@ -29,7 +29,7 @@ const useSavedBlogs = () => {
         if (response.ok) {
           const data = await response.json();
           console.log(data.blogs);
-          setAllBlogs(data.blogs); // Assuming data.blogs is the array of all blogs
+          setAllBlogs(data.blogs);
         }
       } catch (err) {
         console.log(err);

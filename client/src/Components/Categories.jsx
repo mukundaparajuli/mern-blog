@@ -25,7 +25,6 @@ const Categories = () => {
     "Photography",
   ];
   const redirectToBlogsByCategory = (cat) => {
-    console.log(cat);
     navigate(`/category/${cat}`);
   };
   return (

@@ -5,8 +5,8 @@ const AddComment = ({ blogId }) => {
   const { userInfo } = useContext(UserContext);
   const [comment, setComment] = useState("");
 
-  const userID = userInfo.userId;
   const addComment = async () => {
+    if (!userInfo.userId) return;
     try {
       const response = await fetch(
         "http://localhost:5000/api/comment/addComment",
@@ -17,7 +17,7 @@ const AddComment = ({ blogId }) => {
           },
           body: JSON.stringify({
             commentText: comment,
-            userId: userID,
+            userId: userInfo.userId,
             blogId: blogId,
           }),
         }

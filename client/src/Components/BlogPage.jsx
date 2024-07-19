@@ -9,7 +9,6 @@ import Header from "./Header";
 const BlogPage = () => {
   const [blog, setBlog] = useState({});
   const { _id } = useParams();
-  // const { userInfo } = useContext(UserContext);
   const [showComments, setShowComments] = useState(false);
 
   useEffect(() => {
