@@ -4,10 +4,12 @@ import { useNavigate } from "react-router-dom";
 import save from "../assets/save.png";
 import saved from "../assets/saved.png";
 import { UserContext } from "../store/userContext";
+import PromptToLogin from "./PromptToLogin";
 
 const BlogPost = ({ title, blogDescription, coverImage, _id }) => {
   const navigate = useNavigate();
   const [isSaved, setIsSaved] = useState(false);
+  const [showPrompt, setShowPrompt] = useState(false); // State for managing prompt visibility
   const { userInfo } = useContext(UserContext);
 
   useEffect(() => {
@@ -20,9 +22,6 @@ const BlogPost = ({ title, blogDescription, coverImage, _id }) => {
         );
         const data = await response.json();
         setIsSaved(data.savedPosts.includes(_id));
-        console.log("yep this blog is saved: ", _id);
-        console.log(data.savedPosts);
-        console.log("isSaved status: ", isSaved);
       } catch (error) {
         console.error("Error fetching saved posts:", error);
       }
@@ -36,6 +35,11 @@ const BlogPost = ({ title, blogDescription, coverImage, _id }) => {
   };
 
   const handleSavePost = async () => {
+    if (!userInfo) {
+      setShowPrompt(true); // Show prompt if user is not logged in
+      return;
+    }
+
     try {
       const response = await fetch(
         `http://localhost:5000/api/saved/savedPost/${userInfo.userId}`,
@@ -56,6 +60,11 @@ const BlogPost = ({ title, blogDescription, coverImage, _id }) => {
   };
 
   const handleUnsavePost = async () => {
+    if (!userInfo) {
+      setShowPrompt(true); // Show prompt if user is not logged in
+      return;
+    }
+
     try {
       const response = await fetch(
         `http://localhost:5000/api/saved/removePost/${userInfo.userId}`,
@@ -75,41 +84,53 @@ const BlogPost = ({ title, blogDescription, coverImage, _id }) => {
     }
   };
 
+  const closePrompt = () => {
+    setShowPrompt(false); // Close the prompt
+  };
+
   return (
-    <div className="h-72 shadow-lg rounded-lg my-4 pr-8 w-2/3 flex justify-evenly bg-slate-100">
-      <img
-        src={coverImage}
-        alt="Image"
-        className="h-72 w-1/2 content object-cover mr-6 ml-0 rounded-l-lg"
-      />
-      <div className="h-72 w-1/2">
-        <div className="font-bold text-3xl text-black my-2 py-2">{title}</div>
-        <div
-          className="overflow-hidden text-justify h-36 text-blog-desc"
-          dangerouslySetInnerHTML={{
-            __html: DOMPurify.sanitize(blogDescription),
-          }}
-        ></div>
-        <div className="w-full flex items-center justify-between">
-          <button
-            className="w-11/12 rounded-xl bg-black text-white font-semibold py-1 mt-8"
-            onClick={() => handleBlogPage(_id)}
-          >
-            Read More
-          </button>
-          {console.log(isSaved)}
-          {isSaved ? (
-            <button className="w-1/12" onClick={handleUnsavePost}>
-              <img src={saved} alt="Unsave" className="h-8 w-8 py-1 mt-8" />
+    <>
+      {showPrompt && (
+        <PromptToLogin
+          key="prompt"
+          onClose={closePrompt}
+          feature={"to save a blog post"}
+        />
+      )}
+      <div className="h-72 shadow-lg rounded-lg my-4 pr-8 w-2/3 flex justify-evenly bg-slate-100">
+        <img
+          src={coverImage}
+          alt="Image"
+          className="h-72 w-1/2 content object-cover mr-6 ml-0 rounded-l-lg"
+        />
+        <div className="h-72 w-1/2">
+          <div className="font-bold text-3xl text-black my-2 py-2">{title}</div>
+          <div
+            className="overflow-hidden text-justify h-36 text-blog-desc"
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(blogDescription),
+            }}
+          ></div>
+          <div className="w-full flex items-center justify-between">
+            <button
+              className="w-11/12 rounded-xl bg-black text-white font-semibold py-1 mt-8"
+              onClick={() => handleBlogPage(_id)}
+            >
+              Read More
             </button>
-          ) : (
-            <button className="w-1/12" onClick={handleSavePost}>
-              <img src={save} alt="Save" className="h-8 w-8 py-1 mt-8" />
-            </button>
-          )}
+            {isSaved ? (
+              <button className="w-1/12" onClick={handleUnsavePost}>
+                <img src={saved} alt="Unsave" className="h-8 w-8 py-1 mt-8" />
+              </button>
+            ) : (
+              <button className="w-1/12" onClick={handleSavePost}>
+                <img src={save} alt="Save" className="h-8 w-8 py-1 mt-8" />
+              </button>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

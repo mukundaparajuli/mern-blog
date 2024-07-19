@@ -33,7 +33,7 @@ const BlogPage = () => {
   }, [_id]);
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center py-6">
+    <div className="min-h-screen bg-gray-100 flex flex-col items-center py-6 w-screen">
       <Header />
       {blog && (
         <div className="bg-white shadow-lg rounded-lg w-11/12 lg:w-2/3 my-6 p-6">
