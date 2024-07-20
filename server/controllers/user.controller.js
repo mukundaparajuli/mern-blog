@@ -8,8 +8,7 @@ const updateProfile = expressAsyncHandler(async (req, res) => {
     const avatar = req.file;
     const avatarPath = avatar?.path;
 
-    console.log("File:", avatar);
-    console.log("Body:", req.body);
+    zz
 
     let avatarUrl;
 

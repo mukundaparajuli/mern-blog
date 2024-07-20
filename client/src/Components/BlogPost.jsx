@@ -101,15 +101,22 @@ const BlogPost = ({ title, blogDescription, coverImage, _id }) => {
         <img
           src={coverImage}
           alt="Image"
-          className="h-72 w-1/2 content object-cover mr-6 ml-0 rounded-l-lg"
+          className="h-72 w-1/2 content object-cover mr-6 ml-0 rounded-l-lg cursor-pointer"
+          onClick={() => handleBlogPage(_id)}
         />
         <div className="h-72 w-1/2">
-          <div className="font-bold text-3xl text-black my-2 py-2">{title}</div>
           <div
-            className="overflow-hidden text-justify h-36 text-blog-desc"
+            className="font-bold text-3xl text-black my-2 py-2 cursor-pointer"
+            onClick={() => handleBlogPage(_id)}
+          >
+            {title}
+          </div>
+          <div
+            className="overflow-hidden text-justify h-36 text-blog-desc cursor-pointer"
             dangerouslySetInnerHTML={{
               __html: DOMPurify.sanitize(blogDescription),
             }}
+            onClick={() => handleBlogPage(_id)}
           ></div>
           <div className="w-full flex items-center justify-between">
             <button

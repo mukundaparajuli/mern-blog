@@ -58,7 +58,6 @@ const loginUser = expressAsyncHandler(async (req, res) => {
 
         res.status(200).cookie('Token', accessToken, {
             secure: false,
-            // httpOnly: true,
             expires: expiryDate,
             domain: 'localhost',
             sameSite: "lax",
@@ -68,4 +67,11 @@ const loginUser = expressAsyncHandler(async (req, res) => {
     }
 })
 
-module.exports = { registerUser, loginUser };
+const logOutUser = expressAsyncHandler(async (req, res) => {
+    res.status(200).clearCookie('Token', {
+        secure: false,
+        domain: 'localhost',
+        sameSite: "lax",
+    }).json({ message: "Successfully logged out" });
+});
+module.exports = { registerUser, loginUser, logOutUser };

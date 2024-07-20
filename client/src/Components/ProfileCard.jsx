@@ -7,6 +7,20 @@ const ProfileCard = () => {
   const navigate = useNavigate();
   const { userInfo } = useContext(UserContext);
 
+  const logOutUser = async () => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/auth/logout`, {
+        method: "POST",
+      });
+      if (response.ok) {
+        const data = response.json();
+        console.log(data);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   if (!userInfo) {
     return null;
   }
@@ -42,7 +56,10 @@ const ProfileCard = () => {
             View Profile
           </button>
 
-          <button className="font-bold border p-1 rounded-md bg-blue-500 w-full text-white hover:bg-blue-800 transition duration-300 flex items-center justify-center gap-2">
+          <button
+            className="font-bold border p-1 rounded-md bg-blue-500 w-full text-white hover:bg-blue-800 transition duration-300 flex items-center justify-center gap-2"
+            onClick={logOutUser}
+          >
             <img src={logoutIcon} alt="Log Out Icon" className="h-6 w-6" />
             Log Out
           </button>

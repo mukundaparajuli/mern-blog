@@ -13,11 +13,27 @@ const Header = () => {
   const handleGetBack = () => {
     navigate(-1);
   };
+
+  const logOutUser = async () => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/auth/logout`, {
+        method: "POST",
+      });
+      if (response.ok) {
+        const data = response.json();
+        console.log(data);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const changeShowStatus = () => {
     setShow(!show);
     console.log(userInfo);
     console.log("changed successfully!");
   };
+
   const closePrompt = () => {
     setShow(false);
   };
