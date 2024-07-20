@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, redirect, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -31,9 +32,13 @@ const Register = () => {
       });
       if (response.ok) {
         navigate("/login");
+        toast.success("Registered Successfully!");
+      } else {
+        const errorData = await response.json();
+        toast.error(errorData.message || "Registration failed");
       }
     } catch (error) {
-      console.log("Error occured while registering the user");
+      toast.error("Error occured while registering the user");
     }
   };
 

@@ -1,20 +1,24 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { UserContext } from "../store/userContext";
 import logoutIcon from "../assets/logout.png";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
-const ProfileCard = () => {
+const ProfileCard = ({ setShow }) => {
   const navigate = useNavigate();
-  const { userInfo } = useContext(UserContext);
+  const { userInfo, setUserInfo } = useContext(UserContext);
 
   const logOutUser = async () => {
     try {
       const response = await fetch(`http://localhost:5000/api/auth/logout`, {
         method: "POST",
+        credentials: "include",
       });
       if (response.ok) {
-        const data = response.json();
-        console.log(data);
+        setShow(false);
+        setUserInfo(null);
+        // window.location.reload();
+        toast.success("Logged out successfully!");
       }
     } catch (err) {
       console.log(err);

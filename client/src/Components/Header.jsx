@@ -14,20 +14,6 @@ const Header = () => {
     navigate(-1);
   };
 
-  const logOutUser = async () => {
-    try {
-      const response = await fetch(`http://localhost:5000/api/auth/logout`, {
-        method: "POST",
-      });
-      if (response.ok) {
-        const data = response.json();
-        console.log(data);
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   const changeShowStatus = () => {
     setShow(!show);
     console.log(userInfo);
@@ -49,7 +35,7 @@ const Header = () => {
         </div>
         {show &&
           (userInfo.userInfo ? (
-            <ProfileCard />
+            <ProfileCard setShow={setShow} />
           ) : (
             <PromptToLogin onClose={closePrompt} feature={"view the profile"} />
           ))}

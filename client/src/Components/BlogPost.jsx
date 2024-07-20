@@ -5,6 +5,7 @@ import save from "../assets/save.png";
 import saved from "../assets/saved.png";
 import { UserContext } from "../store/userContext";
 import PromptToLogin from "./PromptToLogin";
+import { toast } from "react-toastify";
 
 const BlogPost = ({ title, blogDescription, coverImage, _id }) => {
   const navigate = useNavigate();
@@ -53,6 +54,7 @@ const BlogPost = ({ title, blogDescription, coverImage, _id }) => {
       );
       if (response.ok) {
         setIsSaved(true);
+        toast.success("Saved Post Successfully");
       }
     } catch (error) {
       console.error("Error saving post:", error);
