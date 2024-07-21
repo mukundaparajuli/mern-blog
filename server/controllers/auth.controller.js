@@ -2,6 +2,7 @@ const expressAsyncHandler = require("express-async-handler");
 const bcrypt = require("bcrypt");
 const User = require("../models/user.model");
 const jwt = require("jsonwebtoken");
+const Token = require("../models/token.model");
 
 const registerUser = expressAsyncHandler(async (req, res) => {
     const { username, email, password } = await req.body;
@@ -44,7 +45,9 @@ const loginUser = expressAsyncHandler(async (req, res) => {
 
     try {
         console.log(validUser);
-        const accessToken = jwt.sign({
+        const accessToken = generateAccessToken(user)
+
+        const refreshToken = jwt.sign({
             user: {
                 username: validUser.username,
                 email: validUser.email,
@@ -52,7 +55,10 @@ const loginUser = expressAsyncHandler(async (req, res) => {
                 isAdmin: validUser.isAdmin,
                 userId: validUser._id,
             }
-        }, process.env.SECRET_KEY, { expiresIn: "1d" });
+        }, process.env.REFRESH_TOKEN_SECRET);
+        const token = new Token({ userId: user._id, token: refreshToken });
+        await token.save();
+
         const expiryDate = new Date();
         expiryDate.setDate(expiryDate.getDate() + 1);
 
@@ -65,7 +71,22 @@ const loginUser = expressAsyncHandler(async (req, res) => {
     } catch (err) {
         res.status(400).json({ message: "Error occured while signing in!" });
     }
-})
+});
+
+const refreshToken = expressAsyncHandler(async (req, res) => {
+    const { token: refreshToken } = req.body;
+    if (!refreshToken) return res.sendStatus(401);
+
+    const tokenDoc = await Token.findOne({ token: refreshToken });
+    if (!tokenDoc) return res.sendStatus(403);
+
+    jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
+        if (err) return res.sendStatus(403);
+
+        const newAccessToken = generateAccessToken({ _id: user.id });
+        res.json({ accessToken: newAccessToken });
+    });
+});
 
 const logOutUser = expressAsyncHandler(async (req, res) => {
     res.status(200).clearCookie('Token', {
@@ -74,4 +95,6 @@ const logOutUser = expressAsyncHandler(async (req, res) => {
         sameSite: "lax",
     }).json({ message: "Successfully logged out" });
 });
-module.exports = { registerUser, loginUser, logOutUser };
+
+
+module.exports = { registerUser, loginUser, refreshToken, logOutUser };

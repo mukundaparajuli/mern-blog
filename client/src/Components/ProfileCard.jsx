@@ -17,8 +17,8 @@ const ProfileCard = ({ setShow }) => {
       if (response.ok) {
         setShow(false);
         setUserInfo(null);
-        // window.location.reload();
         toast.success("Logged out successfully!");
+        window.location.reload();
       }
     } catch (err) {
       console.log(err);
