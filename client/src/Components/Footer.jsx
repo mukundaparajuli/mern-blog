@@ -17,25 +17,25 @@ const Footer = () => {
           <div className="flex space-x-4">
             <a
               href="https://www.facebook.com/mukunda.parajuli.1232"
-              className="text-white text-2xl"
+              className="text-white text-2xl hover:scale-125"
             >
               <FaFacebookF />
             </a>
             <a
               href="https://twitter.com/m76760052"
-              className="text-white text-2xl"
+              className="text-white text-2xl hover:scale-125"
             >
               <FaTwitter />
             </a>
             <a
               href="https://linkedin.com/in/mukundaparajuli"
-              className="text-white text-2xl"
+              className="text-white text-2xl hover:scale-125"
             >
               <FaLinkedinIn />
             </a>
             <a
               href="https://github.com/mukundaparajuli"
-              className="text-white text-2xl"
+              className="text-white text-2xl hover:scale-125"
             >
               <FaGithub />
             </a>

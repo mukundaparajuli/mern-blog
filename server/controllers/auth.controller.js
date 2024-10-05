@@ -5,76 +5,77 @@ const jwt = require("jsonwebtoken");
 const Token = require("../models/token.model");
 
 const registerUser = expressAsyncHandler(async (req, res) => {
-    const { username, email, password } = await req.body;
+    const { username, email, password } = req.body;
     if (!username || !email || !password) {
-        res.status(400).json({ message: "All fields are mandatory!" });
+        return res.status(400).json({ message: "All fields are mandatory!" });
     }
     try {
-        const userExists = await User.findOne({ email } || { username });
+        const userExists = await User.findOne({ $or: [{ email }, { username }] });
         if (userExists) {
-            res.status(400).json({ message: "User already exists" });
+            return res.status(400).json({ message: "User already exists" });
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        const user = await User.create({ username, email, password: hashedPassword })
+        const user = await User.create({ username, email, password: hashedPassword });
         console.log(user);
-        res.status(200).json({ user });
+        return res.status(200).json({ user });
     } catch (err) {
-        res.status(400).json({ message: `Error occured: ${err}` });
+        return res.status(400).json({ message: `Error occurred: ${err}` });
     }
 });
 
-
-// login user
 const loginUser = expressAsyncHandler(async (req, res) => {
-    const { username, password } = await req.body;
+    const { username, password } = req.body;
     if (!username || !password) {
-        res.status(400).json({ message: "All fields are mandatory1" });
+        return res.status(400).json({ message: "All fields are mandatory!" });
     }
 
     const validUser = await User.findOne({ username });
     if (!validUser) {
-        res.status(404).json({ message: "User doesn't exist!" });
+        return res.status(404).json({ message: "User doesn't exist!" });
     }
 
     const checkPassword = await bcrypt.compare(password, validUser.password);
     if (!checkPassword) {
-        res.status(401).json({ message: "Invalid password!" });
+        return res.status(401).json({ message: "Invalid password!" });
     }
 
     try {
         console.log(validUser);
-        const accessToken = generateAccessToken(user)
+        const userPayload = {
+            username: validUser.username,
+            email: validUser.email,
+            imageURL: validUser.imageURL,
+            isAdmin: validUser.isAdmin,
+            userId: validUser._id,
+        };
 
-        const refreshToken = jwt.sign({
-            user: {
-                username: validUser.username,
-                email: validUser.email,
-                imageURL: validUser.imageURL,
-                isAdmin: validUser.isAdmin,
-                userId: validUser._id,
-            }
-        }, process.env.REFRESH_TOKEN_SECRET);
-        const token = new Token({ userId: user._id, token: refreshToken });
+        const accessToken = jwt.sign({ user: userPayload }, process.env.SECRET_KEY, { expiresIn: '1d' });
+        const refreshToken = jwt.sign({ user: userPayload }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '7d' });
+
+        const token = new Token({ userId: validUser._id, token: refreshToken });
         await token.save();
 
         const expiryDate = new Date();
         expiryDate.setDate(expiryDate.getDate() + 1);
 
-        res.status(200).cookie('Token', accessToken, {
+        return res.status(200).cookie('Token', accessToken, {
             secure: false,
             expires: expiryDate,
-            domain: 'localhost',
-            sameSite: "lax",
-        }).json({ token: accessToken, success: true, username: validUser.username, email: validUser.email, imageURL: validUser.imageURL, isAdmin: validUser.isAdmin, userId: validUser._id });
+            httpOnly: true
+        }).cookie('refreshToken', refreshToken, {
+            secure: false,
+            httpOnly: true
+        }).json({ token: accessToken, success: true, ...userPayload });
     } catch (err) {
-        res.status(400).json({ message: "Error occured while signing in!" });
+        return res.status(400).json({ message: "Error occurred while signing in!" });
     }
 });
 
 const refreshToken = expressAsyncHandler(async (req, res) => {
-    const { token: refreshToken } = req.body;
+    console.log(req.cookies.refreshToken)
+    const refreshToken = req.cookies.refreshToken;
     if (!refreshToken) return res.sendStatus(401);
 
     const tokenDoc = await Token.findOne({ token: refreshToken });
@@ -83,18 +84,28 @@ const refreshToken = expressAsyncHandler(async (req, res) => {
     jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
         if (err) return res.sendStatus(403);
 
-        const newAccessToken = generateAccessToken({ _id: user.id });
+        const newAccessToken = jwt.sign({
+            user: {
+                username: user.username,
+                email: user.email,
+                imageURL: user.imageURL,
+                isAdmin: user.isAdmin,
+                userId: user.userId,
+            }
+        }, process.env.SECRET_KEY, { expiresIn: '1d' });
+
         res.json({ accessToken: newAccessToken });
     });
 });
 
 const logOutUser = expressAsyncHandler(async (req, res) => {
-    res.status(200).clearCookie('Token', {
+    return res.status(200).clearCookie('Token', {
         secure: false,
-        domain: 'localhost',
-        sameSite: "lax",
+        httpOnly: true,
+    }).clearCookie('refreshToken', {
+        secure: false,
+        httpOnly: true
     }).json({ message: "Successfully logged out" });
 });
-
 
 module.exports = { registerUser, loginUser, refreshToken, logOutUser };

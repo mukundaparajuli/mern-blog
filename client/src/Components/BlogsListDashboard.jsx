@@ -6,7 +6,7 @@ import Footer from "./Footer";
 
 const BlogsListDashboard = () => {
   return (
-    <div className="bg-slate-300 h-full overflow-auto ">
+    <div className="no-scrollbar bg-slate-200 h-full overflow-auto ">
       <div className="min-h-screen">
         <Header />
         <SearchBar />

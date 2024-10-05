@@ -24,6 +24,7 @@ const addComment = expressAsyncHandler(async (req, res) => {
 
 const getAllComments = expressAsyncHandler(async (req, res) => {
     const { blogId } = req.params;
+    console.log("eta hai eta:", blogId)
 
     if (!blogId) {
         return res.status(400).json({ message: "Blog ID is required!" });
@@ -32,6 +33,7 @@ const getAllComments = expressAsyncHandler(async (req, res) => {
     try {
         const comments = await Comment.find({ blogId }).populate('userId', 'username _id imageURL')
         res.status(200).json(comments);
+        console.log(comments)
     } catch (error) {
         console.error("Error occurred while fetching comments: ", error);
         res.status(500).json({ message: "Internal Server Error" });
@@ -41,7 +43,7 @@ const getAllComments = expressAsyncHandler(async (req, res) => {
 // delete a comment
 const deleteComment = expressAsyncHandler(async (req, res) => {
     const { commentId } = req.params;
-    console.log(commentId)
+    console.log("eta hai eta", commentId)
 
     if (!commentId) {
         return res.status(404).json({ message: "Comment ID is required!" });

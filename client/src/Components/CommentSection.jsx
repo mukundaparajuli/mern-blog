@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import CommentCard from "./CommentCard";
 
-const CommentSection = (blogId) => {
+const CommentSection = ({ blogId }) => {
   const [comments, setComments] = useState([]);
+  console.log(blogId);
 
   useEffect(() => {
     const getComments = async () => {

@@ -1,9 +1,12 @@
 import React, { useContext, useState } from "react";
 import { UserContext } from "../store/userContext";
+import { toast } from "react-toastify";
 
 const CommentCard = ({ userId, commentText, _id }) => {
+  const { userInfo } = useContext(UserContext);
   const { imageURL, username } = userId;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isDeleted, setIsDeleted] = useState(false);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -20,13 +23,16 @@ const CommentCard = ({ userId, commentText, _id }) => {
       if (response.ok) {
         const data = response.json();
         console.log(data);
+        setIsDeleted(true);
+        toast.success("Comment deleted!");
       }
     } catch (error) {
       console.log(error);
     }
   };
-
-  const { userInfo } = useContext(UserContext);
+  if (isDeleted) {
+    return null;
+  }
 
   return (
     <div className="relative flex justify-start w-full gap-4 my-4 bg-white border-b-2 p-4 shadow-sm">

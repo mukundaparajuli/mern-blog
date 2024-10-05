@@ -32,7 +32,7 @@ const BlogListByCategory = () => {
     getBlogsByCategory();
   }, [categories]);
   return (
-    <div className="flex justify-center items-center flex-col w-full">
+    <div className="flex justify-center items-center flex-col w-full no-scrollbar">
       {blogsByCategory ? (
         blogsByCategory.map((blog) => <BlogPost {...blog} key={blog._id} />)
       ) : (

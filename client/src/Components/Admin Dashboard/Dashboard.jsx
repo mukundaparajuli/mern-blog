@@ -4,8 +4,8 @@ import Header from "../Header";
 
 const Dashboard = () => {
   return (
-    <div className="h-screen flex flex-col">
-      <div className="fixed top-0 w-full z-20">
+    <div className="h-screen flex flex-col no-scrollbar p-14">
+      <div className="top-0 w-full z-20">
         <Header />
       </div>
       <div className="flex flex-grow pt-16">

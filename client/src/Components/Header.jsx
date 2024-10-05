@@ -24,9 +24,9 @@ const Header = () => {
     setShow(false);
   };
   return (
-    <div className="w-full flex justify-between items-center p-2 m-2">
+    <div className="w-full flex justify-between items-center p-2 m-2 bg-slate-200 p-18">
       <button onClick={() => handleGetBack()}>
-        <img src={backButton} alt="Back" className="h-8 w-8" />{" "}
+        <img src={backButton} alt="Back" className="h-8 w-8 " />{" "}
       </button>
       <div className="cursor-pointer">
         <div onClick={changeShowStatus} className="flex gap-2 items-center">

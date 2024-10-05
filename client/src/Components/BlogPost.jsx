@@ -99,7 +99,7 @@ const BlogPost = ({ title, blogDescription, coverImage, _id }) => {
           feature={"to save a blog post"}
         />
       )}
-      <div className="h-72 shadow-lg rounded-lg my-4 pr-8 w-2/3 flex justify-evenly bg-slate-100">
+      <div className="h-72 shadow-lg rounded-lg my-4 pr-8 w-2/3 flex justify-evenly bg-[#FFFAFA]">
         <img
           src={coverImage}
           alt="Image"
