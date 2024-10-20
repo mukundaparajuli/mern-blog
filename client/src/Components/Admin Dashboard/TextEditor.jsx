@@ -29,7 +29,7 @@ const TextEditor = () => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
+      
       }
     } catch (error) {
       console.log(error);

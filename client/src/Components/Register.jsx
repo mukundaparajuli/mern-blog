@@ -17,7 +17,6 @@ const Register = () => {
 
     setUser({ ...user, [name]: value });
 
-    console.log("Registering user with: ", name, value);
   };
 
   const handleRegister = async (e) => {

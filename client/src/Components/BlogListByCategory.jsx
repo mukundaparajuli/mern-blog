@@ -6,7 +6,6 @@ const BlogListByCategory = () => {
   let [blogsByCategory, setBlogsByCategory] = useState([]);
   const { categories } = useParams();
 
-  console.log(categories);
   const getBlogsByCategory = async () => {
     try {
       const response = await fetch(
@@ -18,7 +17,6 @@ const BlogListByCategory = () => {
       );
       if (response.ok) {
         const data = await response.json();
-        console.log(data.blogs);
         setBlogsByCategory(data.blogs);
       } else {
         console.log(await response.error());

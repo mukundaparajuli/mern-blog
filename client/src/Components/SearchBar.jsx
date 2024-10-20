@@ -8,9 +8,9 @@ const SearchBar = () => {
     navigate("/search/" + searchTerm);
   };
   return (
-    <div className="px-8 w-full flex justify-center">
-      <div className="flex justify-evenly my-4 w-2/3 rounded-md border-2 border-black">
-        <div className="w-11/12">
+    <div className="md:px-8 w-full flex justify-center">
+      <div className="flex justify-evenly my-4 md:w-2/3 w-4/5 rounded-md border-2 border-black">
+        <div className="w-10/12 md:w-11/12">
           <input
             type="text"
             name="searchTerm"
@@ -22,7 +22,7 @@ const SearchBar = () => {
           />
         </div>
         <button
-          className="w-1/12 bg-gray-200 rounded-r-md border-l-2 border-black flex justify-center items-center"
+          className="md:w-1/12 w-2/12 bg-gray-200 rounded-r-md border-l-2 border-black flex justify-center items-center px-1"
           onClick={() => handleSearch()}
         >
           <svg

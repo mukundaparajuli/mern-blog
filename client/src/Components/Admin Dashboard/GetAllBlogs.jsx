@@ -8,7 +8,6 @@ import BlogCard from "./BlogCard";
 const GetAllBlogs = () => {
   const [blogs, setBlogs] = useState([]);
   const user = useContext(UserContext);
-  console.log(user);
   const getBlogs = async () => {
     const response = await fetch("http://localhost:5000/api/blog/blogs", {
       method: "GET",
@@ -16,7 +15,7 @@ const GetAllBlogs = () => {
     });
     if (response.ok) {
       const data = await response.json();
-      console.log("Json data:", data);
+
       setBlogs(data.blogs);
     } else {
       console.log(response.error);

@@ -22,7 +22,6 @@ const CommentCard = ({ userId, commentText, _id }) => {
       );
       if (response.ok) {
         const data = response.json();
-        console.log(data);
         setIsDeleted(true);
         toast.success("Comment deleted!");
       }

@@ -56,7 +56,6 @@ const ProfilePage = () => {
           userId: userInfo.userId,
           username: data.user.username,
         });
-        console.log(userInfo);
       }
     } catch (error) {
       console.log(error);

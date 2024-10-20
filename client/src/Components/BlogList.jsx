@@ -4,7 +4,6 @@ import { UserContext } from "../store/userContext";
 
 const BlogList = () => {
   const { userInfo } = useContext(UserContext);
-  console.log("user info is: ", userInfo);
   const [blogs, setBlogs] = useState([]);
   const getBlogs = async () => {
     const response = await fetch("http://localhost:5000/api/blog/blogs", {

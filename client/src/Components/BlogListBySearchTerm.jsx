@@ -6,7 +6,6 @@ const BlogListBySearchTerm = () => {
   let [blogsBySearchTerm, setBlogsBySearchTerm] = useState([]);
   const { searchTerm } = useParams();
 
-  console.log(searchTerm);
   const getBlogsBySearchTerm = async () => {
     try {
       const response = await fetch(
@@ -18,7 +17,6 @@ const BlogListBySearchTerm = () => {
       );
       if (response.ok) {
         const data = await response.json();
-        console.log(data.blogs);
         setBlogsBySearchTerm(data.blogs);
       } else {
         console.log(await response.error());

@@ -32,11 +32,11 @@ const Categories = () => {
   };
 
   return (
-    <div className="px-8 w-full flex justify-center">
-      <div className="flex flex-wrap justify-center h-auto w-2/3">
+    <div className="md:px-8 px-2 w-full flex justify-center">
+      <div className="flex flex-wrap justify-center h-auto md:w-2/3 w-full">
         <NavLink
           to={"/"}
-          className={` font-bold text-md py-1 px-2 m-1 rounded-md border border-slate-300 transition duration-300 ease-in-out 
+          className={` md:font-bold font-semibold md:text-md text-sm py-1 md:px-2 px-2 m-1 rounded-md border border-slate-300 transition duration-300 ease-in-out 
             ${activeCategory === null
               ? "bg-black text-white"
               : "hover:bg-black hover:text-white active:bg-black active:text-white bg-white text-black"
@@ -48,7 +48,7 @@ const Categories = () => {
         {categories.map((category, index) => (
           <button
             key={index}
-            className={`font-bold text-md py-1 px-2 m-1 rounded-md border border-slate-300 transition duration-300 ease-in-out
+            className={`md:font-bold font-semibold md:text-md text-sm py-1 md:px-2 px-1 m-1 rounded-md border border-slate-300 transition duration-300 ease-in-out
               ${activeCategory === category
                 ? "bg-black text-white"
                 : "hover:bg-black hover:text-white active:bg-black active:text-white bg-white text-black"

@@ -15,7 +15,7 @@ const useSavedBlogs = () => {
         );
         if (response.ok) {
           const data = await response.json();
-          console.log(data.savedPosts);
+
           setSavedBlogUrl(data.savedPosts);
         }
       } catch (err) {
@@ -28,7 +28,7 @@ const useSavedBlogs = () => {
         const response = await fetch(`http://localhost:5000/api/blog/blogs`);
         if (response.ok) {
           const data = await response.json();
-          console.log(data.blogs);
+
           setAllBlogs(data.blogs);
         }
       } catch (err) {
