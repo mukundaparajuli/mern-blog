@@ -24,7 +24,7 @@ const Header = () => {
     setShow(false);
   };
   return (
-    <div className="w-full flex justify-between items-center p-2 m-2 bg-slate-200 p-18">
+    <div className=" w-full flex justify-between items-center bg-slate-200 p-5">
       <button onClick={() => handleGetBack()}>
         <img src={backButton} alt="Back" className="h-8 w-8 " />{" "}
       </button>

@@ -97,7 +97,7 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <div className="static min-h-[100vh]">
+    <div className="">
       <RouterProvider router={router} />
     </div>
   );

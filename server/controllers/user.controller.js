@@ -53,24 +53,18 @@ const updateProfile = expressAsyncHandler(async (req, res) => {
 
 const profileInfo = expressAsyncHandler(async (req, res) => {
 
-    console.log('profile bata user lina laako');
     const { Token } = req.cookies;
 
-    console.log("token eti ho hai ", Token);
     if (!Token) {
         res.status(404).json({ message: "Token not found" });
     }
 
-    console.log("aba hami token verify garxa")
 
     jwt.verify(Token, process.env.SECRET_KEY, (err, decoded) => {
         if (err) {
-            console.log("Token not verified!");
             res.status(401).send("Token not verified!");
         } else {
-            console.log("Token validated!");
             const userInfo = decoded.user;
-            console.log("userInfo eta :", userInfo);
             return res.status(200).json({ message: 'user profile', userInfo });
 
         }

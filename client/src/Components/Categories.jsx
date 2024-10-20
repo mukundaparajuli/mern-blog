@@ -37,10 +37,9 @@ const Categories = () => {
         <NavLink
           to={"/"}
           className={` font-bold text-md py-1 px-2 m-1 rounded-md border border-slate-300 transition duration-300 ease-in-out 
-            ${
-              activeCategory === null
-                ? "bg-black text-white"
-                : "hover:bg-black hover:text-white active:bg-black active:text-white bg-white text-black"
+            ${activeCategory === null
+              ? "bg-black text-white"
+              : "hover:bg-black hover:text-white active:bg-black active:text-white bg-white text-black"
             }`}
           onClick={() => redirectToBlogsByCategory(null)}
         >
@@ -50,10 +49,9 @@ const Categories = () => {
           <button
             key={index}
             className={`font-bold text-md py-1 px-2 m-1 rounded-md border border-slate-300 transition duration-300 ease-in-out
-              ${
-                activeCategory === category
-                  ? "bg-black text-white"
-                  : "hover:bg-black hover:text-white active:bg-black active:text-white bg-white text-black"
+              ${activeCategory === category
+                ? "bg-black text-white"
+                : "hover:bg-black hover:text-white active:bg-black active:text-white bg-white text-black"
               }`}
             onClick={() => redirectToBlogsByCategory(category)}
           >
