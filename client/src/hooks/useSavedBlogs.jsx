@@ -11,7 +11,7 @@ const useSavedBlogs = () => {
     const fetchSavedBlogs = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/api/saved/savedPost/${userInfo.userInfo.userId}`
+          `https://techtonic-backend.onrender.com/api/saved/savedPost/${userInfo.userInfo.userId}`
         );
         if (response.ok) {
           const data = await response.json();
@@ -25,7 +25,7 @@ const useSavedBlogs = () => {
 
     const fetchAllBlogs = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/blog/blogs`);
+        const response = await fetch(`https://techtonic-backend.onrender.com/api/blog/blogs`);
         if (response.ok) {
           const data = await response.json();
 

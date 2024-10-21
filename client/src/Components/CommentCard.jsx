@@ -15,7 +15,7 @@ const CommentCard = ({ userId, commentText, _id }) => {
   const handleDeleteComment = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/comment/delete/` + _id,
+        `https://techtonic-backend.onrender.com/api/comment/delete/` + _id,
         {
           method: "DELETE",
         }

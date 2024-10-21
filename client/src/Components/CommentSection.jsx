@@ -9,7 +9,7 @@ const CommentSection = ({ blogId }) => {
     const getComments = async () => {
       try {
         const response = await fetch(
-          "http://localhost:5000/api/comment/getComment/" + blogId,
+          "https://techtonic-backend.onrender.com/api/comment/getComment/" + blogId,
           {
             method: "GET",
           }

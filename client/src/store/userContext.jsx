@@ -8,7 +8,7 @@ export const UserProvider = ({ children }) => {
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/user/profile`, {
+        const response = await fetch(`https://techtonic-backend.onrender.com/api/user/profile`, {
           credentials: "include",
           method: "GET"
         })

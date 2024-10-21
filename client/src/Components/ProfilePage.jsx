@@ -43,7 +43,7 @@ const ProfilePage = () => {
       formData.append("username", username);
       formData.append("email", email);
       const response = await fetch(
-        "http://localhost:5000/api/user/updateprofile/" + userInfo.userId,
+        "https://techtonic-backend.onrender.com/api/user/updateprofile/" + userInfo.userId,
         {
           method: "PUT",
           body: formData,

@@ -5,7 +5,7 @@ const Users = () => {
   const [users, setUsers] = useState([]);
   const fetchUsers = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/admin/users`, {
+      const response = await fetch(`https://techtonic-backend.onrender.com/api/admin/users`, {
         method: "GET",
         credentials: "include",
       });

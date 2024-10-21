@@ -14,7 +14,7 @@ const AddComment = ({ blogId }) => {
     }
     try {
       const response = await fetch(
-        "http://localhost:5000/api/comment/addComment",
+        "https://techtonic-backend.onrender.com/api/comment/addComment",
         {
           method: "POST",
           headers: {

@@ -16,7 +16,7 @@ const BlogPage = () => {
     const getBlog = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/api/blog/blogs/${_id}`,
+          `https://techtonic-backend.onrender.com/api/blog/blogs/${_id}`,
           {
             method: "GET",
           }

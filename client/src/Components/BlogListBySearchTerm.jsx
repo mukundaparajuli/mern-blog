@@ -9,7 +9,7 @@ const BlogListBySearchTerm = () => {
   const getBlogsBySearchTerm = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/blog/blogs/search/${searchTerm}`,
+        `https://techtonic-backend.onrender.com/api/blog/blogs/search/${searchTerm}`,
         {
           method: "GET",
           credentials: "include",

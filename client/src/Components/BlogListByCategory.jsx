@@ -9,7 +9,7 @@ const BlogListByCategory = () => {
   const getBlogsByCategory = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/blog/blogs/category/${categories}`,
+        `https://techtonic-backend.onrender.com/api/blog/blogs/category/${categories}`,
         {
           method: "GET",
           credentials: "include",

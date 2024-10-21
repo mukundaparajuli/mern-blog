@@ -56,7 +56,7 @@ const BlogPost = ({ title, blogDescription, coverImage, _id }) => {
 
       try {
         const response = await fetch(
-          `http://localhost:5000/api/saved/savedPost/${userInfo.userId}`
+          `https://techtonic-backend.onrender.com/api/saved/savedPost/${userInfo.userId}`
         );
         const data = await response.json();
         setIsSaved(data.savedPosts.includes(_id));
@@ -89,7 +89,7 @@ const BlogPost = ({ title, blogDescription, coverImage, _id }) => {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/saved/savedPost/${userInfo.userId}`,
+        `https://techtonic-backend.onrender.com/api/saved/savedPost/${userInfo.userId}`,
         {
           method: "POST",
           headers: {
@@ -115,7 +115,7 @@ const BlogPost = ({ title, blogDescription, coverImage, _id }) => {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/saved/removePost/${userInfo.userId}`,
+        `https://techtonic-backend.onrender.com/api/saved/removePost/${userInfo.userId}`,
         {
           method: "DELETE",
           headers: {

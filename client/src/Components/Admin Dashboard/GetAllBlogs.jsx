@@ -9,7 +9,7 @@ const GetAllBlogs = () => {
   const [blogs, setBlogs] = useState([]);
   const user = useContext(UserContext);
   const getBlogs = async () => {
-    const response = await fetch("http://localhost:5000/api/blog/blogs", {
+    const response = await fetch("https://techtonic-backend.onrender.com/api/blog/blogs", {
       method: "GET",
       credentials: "include",
     });
