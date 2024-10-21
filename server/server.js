@@ -11,7 +11,7 @@ const bodyParser = require("body-parser")
 databaseConnection();
 app.use(cookieParser());
 app.use(cors({
-    origin: 'https://techtonic-frontend.onrender.com/',
+    origin: 'https://techtonic-frontend.onrender.com',
     credentials: true,
     methods: ['GET', 'POST', 'DELETE', 'PUT', 'PATCH'],
     allowedHeaders: ['Content-Type']
