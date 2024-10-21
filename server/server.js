@@ -11,11 +11,12 @@ const bodyParser = require("body-parser")
 databaseConnection();
 app.use(cookieParser());
 app.use(cors({
-    origin: 'http://localhost:5000',
+    origin: 'http://localhost:5173',
     credentials: true,
     methods: ['GET', 'POST', 'DELETE', 'PUT', 'PATCH'],
     allowedHeaders: ['Content-Type']
 }));
+
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json({ limit: '50mb' }));

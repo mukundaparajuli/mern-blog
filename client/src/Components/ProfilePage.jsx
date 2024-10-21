@@ -2,6 +2,8 @@ import { useContext, useState, useEffect, useRef } from "react";
 import { UserContext } from "../store/userContext";
 import BlogPost from "./BlogPost";
 import useSavedBlogs from "../hooks/useSavedBlogs";
+import { useNavigate } from "react-router-dom";
+import backButton from "../assets/back.png";
 
 const ProfilePage = () => {
   const { userInfo, setUserInfo } = useContext(UserContext);
@@ -12,6 +14,9 @@ const ProfilePage = () => {
 
   // Get saved blogs using the custom hook
   const savedPosts = useSavedBlogs();
+
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     setUsername(userInfo.username);
@@ -64,99 +69,96 @@ const ProfilePage = () => {
   };
 
   return (
-    <>
-      <div className="flex w-[100vw] relative ">
-        <div className="p-4 m-4 border-r-2 border-gray-600 min-h-[100vh] w-1/5 flex flex-col items-center gap-6 fixed">
-          <img
-            src={userInfo.imageURL}
-            alt="Profile Image"
-            className="rounded-full border-2 border-black h-32 w-32 object-cover"
-          />
-          {!editProfileSelected && (
-            <>
-              <div>
-                <div className="text-start font-semibold text-4xl">
-                  {userInfo.username}
-                </div>
-                <div className="text-start text-md italic">
-                  {userInfo.email}
-                </div>
-                <button
-                  className="mt-4 font-semibold text-md bg-gray-300 border border-black px-2 py-1 rounded-md hover:bg-gray-500"
-                  onClick={() => setEditProfileSelected(true)}
-                >
-                  Edit Profile
-                </button>
-              </div>
-            </>
-          )}
-          {editProfileSelected && (
-            <div>
-              <div>
-                <label
-                  htmlFor="uploadAvatar"
-                  className="text-green-600 underline"
-                >
-                  Upload New Avatar
+    <div className="flex flex-col md:flex-row w-full min-h-screen">
+
+      <button onClick={() => { navigate(-1) }} className="fixed m-4 z-10 cursor-pointer">
+        <img src={backButton} alt="Back" className="h-8 w-8 " />{" "}
+      </button>
+      {/* Sidebar for Profile Info */}
+      <div className="p-4 m-4 border-r-2 border-gray-600 h-auto md:min-h-[100vh] w-full md:w-1/5 flex flex-col items-center gap-6 relative md:fixed">
+        <img
+          src={userInfo.imageURL}
+          alt="Profile Image"
+          className="rounded-full border-2 border-black h-32 w-32 object-cover"
+        />
+        {!editProfileSelected ? (
+          <div className="text-center">
+            <div className="text-start font-semibold text-lg md:text-xl">
+              {userInfo.username}
+            </div>
+            <div className="text-start text-sm md:text-sm italic">
+              {userInfo.email}
+            </div>
+            <button
+              className="mt-4 font-semibold text-md bg-gray-300 border border-black px-2 py-1 rounded-md hover:bg-gray-500"
+              onClick={() => setEditProfileSelected(true)}
+            >
+              Edit Profile
+            </button>
+          </div>
+        ) : (
+          <div>
+            <label htmlFor="uploadAvatar" className="text-green-600 underline">
+              Upload New Avatar
+            </label>
+            <input
+              type="file"
+              name="uploadAvatar"
+              id="uploadAvatar"
+              className="hidden"
+              ref={avatarRef}
+            />
+            <div className="flex flex-col gap-3">
+              <div className="flex flex-col">
+                <label htmlFor="username" className="font-semibold text-lg">
+                  Username
                 </label>
                 <input
-                  type="file"
-                  name="uploadAvatar"
-                  id="uploadAvatar"
-                  className="hidden"
-                  ref={avatarRef}
+                  type="text"
+                  name="username"
+                  id="username"
+                  className="py-1 px-2 border border-black rounded-md"
+                  value={username}
+                  onChange={handleUsernameChange}
                 />
               </div>
-              <div className="flex flex-col gap-3">
-                <div className="flex flex-col">
-                  <label htmlFor="username" className="font-semibold text-lg">
-                    Username
-                  </label>
-                  <input
-                    type="text"
-                    name="username"
-                    id="username"
-                    className="py-1 px-2 border border-black rounded-md"
-                    value={username}
-                    onChange={handleUsernameChange}
-                  />
-                </div>
 
-                <div className="flex flex-col">
-                  <label htmlFor="email" className="font-semibold text-lg">
-                    Email
-                  </label>
-                  <input
-                    type="text"
-                    name="email"
-                    id="email"
-                    className="py-1 px-2 border border-black rounded-md"
-                    value={email}
-                    onChange={handleEmailChange}
-                  />
-                </div>
-
-                <button
-                  className="mt-4 font-semibold text-lg bg-gray-300 border border-black px-2 py-1 rounded-md hover:bg-gray-500"
-                  onClick={handleUpdateProfile}
-                >
-                  Update Profile
-                </button>
+              <div className="flex flex-col">
+                <label htmlFor="email" className="font-semibold text-lg">
+                  Email
+                </label>
+                <input
+                  type="text"
+                  name="email"
+                  id="email"
+                  className="py-1 px-2 border border-black rounded-md"
+                  value={email}
+                  onChange={handleEmailChange}
+                />
               </div>
-            </div>
-          )}
-        </div>
 
-        <div className="w-4/5 relative left-1 ml-[20%] p-4 flex flex-col items-center">
-          <div className="font-bold text-3xl">Saved Blogs</div>
-          {savedPosts.length > 0 ? (
-            savedPosts.map((post) => <BlogPost key={post._id} {...post} />)
-          ) : (
-            <p>No saved posts!</p>
-          )}
-        </div>
+              <button
+                className="mt-4 font-semibold text-lg bg-gray-300 border border-black px-2 py-1 rounded-md hover:bg-gray-500"
+                onClick={handleUpdateProfile}
+              >
+                Update Profile
+              </button>
+            </div>
+          </div>
+        )}
       </div>
-    </>
+
+      <hr />
+      {/* Main Content for Saved Blogs */}
+      <div className="w-full md:w-4/5  left-0 md:left-1 ml-0 md:ml-[20%] p-4 flex flex-col items-center">
+        <div className="font-bold text-3xl">Saved Blogs</div>
+        {savedPosts.length > 0 ? (
+          savedPosts.map((post) => <BlogPost key={post._id} {...post} />)
+        ) : (
+          <p>No saved posts!</p>
+        )}
+      </div>
+    </div>
   );
 };
 

@@ -38,7 +38,7 @@ const BlogPage = () => {
       <div className="no-scrollbar min-h-screen bg-slate-200 flex flex-col items-center py-6 w-screen">
         <Header />
         {blog && (
-          <div className="bg-white shadow-lg rounded-lg w-11/12 lg:w-2/3 my-6 p-6">
+          <div className="w-11/12 md:w-9/12  my-6 p-6">
             <div className="text-center text-4xl font-bold my-4">
               {blog.title}
             </div>
@@ -65,7 +65,7 @@ const BlogPage = () => {
             </div>
           </div>
         )}
-        <div className="w-11/12 lg:w-2/3">
+        <div className="w-11/12 md:w-9/12">
           <AddComment blogId={_id} />
           <div
             className="flex justify-between items-center w-full bg-white my-2 p-4 rounded-md shadow cursor-pointer hover:bg-gray-100 transition-all"
@@ -75,9 +75,8 @@ const BlogPage = () => {
               {showComments ? "Hide" : "View"} Comments
             </div>
             <button
-              className={`transform transition-transform ${
-                showComments ? "rotate-180" : "rotate-0"
-              }`}
+              className={`transform transition-transform ${showComments ? "rotate-180" : "rotate-0"
+                }`}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
