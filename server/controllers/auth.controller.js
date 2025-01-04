@@ -5,6 +5,7 @@ const User = require("../models/user.model");
 const Token = require("../models/token.model");
 const { generateVerificationToken } = require("../utils/verification-token");
 const { sendVerificationEmail } = require("../utils/send-mail");
+const { none } = require("../middlewares/multer");
 
 // Utility to check secure cookies
 const isProduction = process.env.NODE_ENV === "production";
@@ -89,10 +90,12 @@ const loginUser = expressAsyncHandler(async (req, res) => {
                 secure: isProduction,
                 httpOnly: true,
                 expires: expiryDate,
+                sameSite: isProduction ? 'none' : 'lax'
             })
             .cookie("refreshToken", refreshToken, {
                 secure: isProduction,
                 httpOnly: true,
+                sameSite: isProduction ? 'none' : 'lax'
             })
             .json({ token: accessToken, success: true, ...userPayload });
     } catch (err) {
