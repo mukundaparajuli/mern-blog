@@ -2,7 +2,6 @@ const expressAsyncHandler = require("express-async-handler");
 const Blog = require("../models/blog.model");
 const { uploadToCloudinary } = require("../config/cloudinary");
 const userModel = require("../models/user.model");
-const blogModel = require("../models/blog.model");
 
 const getAllBlogs = expressAsyncHandler(async (req, res) => {
     try {
