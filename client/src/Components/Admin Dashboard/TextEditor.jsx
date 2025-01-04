@@ -1,6 +1,7 @@
 import JoditEditor from "jodit-react";
 import { useContext, useRef, useState } from "react";
 import { UserContext } from "../../store/userContext";
+import { BACKEND_URL } from "../../constants";
 
 const TextEditor = () => {
   const { userInfo } = useContext(UserContext);
@@ -21,18 +22,18 @@ const TextEditor = () => {
     formData.append("coverImage", file);
 
     try {
-      const response = await fetch("https://techtonic-backend.onrender.com/api/blog/blogs", {
+      const response = await fetch(`${BACKEND_URL}/api/blog/blogs`, {
         method: "POST",
         credentials: "include",
         body: formData,
       });
-
+      // console.log(await response.json())
       if (response.ok) {
         const data = await response.json();
-
+        console.log(data);
       }
     } catch (error) {
-      console.log(error);
+      console.log("error is", error);
     }
   };
   return (

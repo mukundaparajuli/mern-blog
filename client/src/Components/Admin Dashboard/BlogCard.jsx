@@ -1,6 +1,7 @@
 import DOMPurify from "dompurify";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { BACKEND_URL } from "../../constants";
 
 const BlogCard = ({ title, _id, blogDescription }) => {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ const BlogCard = ({ title, _id, blogDescription }) => {
   const handleBlogDeletion = async () => {
     try {
       const response = await fetch(
-        "https://techtonic-backend.onrender.com/api/blog/blogs/" + _id,
+        `${BACKEND_URL}/api/blog/blogs/` + _id,
         {
           method: "DELETE",
           credentials: "include",

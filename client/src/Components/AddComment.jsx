@@ -1,11 +1,13 @@
 import { useContext, useState } from "react";
 import { UserContext } from "../store/userContext";
 import PromptToLogin from "./PromptToLogin";
+import { BACKEND_URL } from "../constants";
 
 const AddComment = ({ blogId }) => {
   const { userInfo } = useContext(UserContext);
   const [comment, setComment] = useState("");
   const [showPrompt, setShowPrompt] = useState(false);
+  
 
   const addComment = async () => {
     if (!userInfo) {
@@ -14,7 +16,7 @@ const AddComment = ({ blogId }) => {
     }
     try {
       const response = await fetch(
-        "https://techtonic-backend.onrender.com/api/comment/addComment",
+        `${BACKEND_URL}/api/comment/addComment`,
         {
           method: "POST",
           headers: {

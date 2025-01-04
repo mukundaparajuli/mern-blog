@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import CommentCard from "./CommentCard";
+import { BACKEND_URL } from "../constants";
 
 const CommentSection = ({ blogId }) => {
   const [comments, setComments] = useState([]);
@@ -9,7 +10,7 @@ const CommentSection = ({ blogId }) => {
     const getComments = async () => {
       try {
         const response = await fetch(
-          "https://techtonic-backend.onrender.com/api/comment/getComment/" + blogId,
+          `${BACKEND_URL}/api/comment/getComment/` + blogId,
           {
             method: "GET",
           }

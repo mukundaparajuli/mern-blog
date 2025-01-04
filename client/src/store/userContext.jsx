@@ -1,4 +1,5 @@
 import { createContext, useEffect, useState } from "react";
+import { BACKEND_URL } from "../constants";
 
 export const UserContext = createContext(null);
 
@@ -8,7 +9,7 @@ export const UserProvider = ({ children }) => {
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const response = await fetch(`https://techtonic-backend.onrender.com/api/user/profile`, {
+        const response = await fetch(`{BACKEND_URL}api/user/profile`, {
           credentials: "include",
           method: "GET"
         })

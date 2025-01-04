@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../store/userContext";
 import { toast } from "react-toastify";
+import { BACKEND_URL } from "../constants";
 
 const Login = () => {
   const { setUserInfo } = useContext(UserContext);
@@ -23,7 +24,7 @@ const Login = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await fetch("https://techtonic-backend.onrender.com/api/auth/login", {
+      const response = await fetch(`${BACKEND_URL}/api/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

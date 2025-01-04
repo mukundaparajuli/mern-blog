@@ -4,6 +4,7 @@ import BlogPost from "./BlogPost";
 import useSavedBlogs from "../hooks/useSavedBlogs";
 import { useNavigate } from "react-router-dom";
 import backButton from "../assets/back.png";
+import { BACKEND_URL } from "../constants";
 
 const ProfilePage = () => {
   const { userInfo, setUserInfo } = useContext(UserContext);
@@ -43,7 +44,7 @@ const ProfilePage = () => {
       formData.append("username", username);
       formData.append("email", email);
       const response = await fetch(
-        "https://techtonic-backend.onrender.com/api/user/updateprofile/" + userInfo.userId,
+        `${BACKEND_URL}/api/user/updateprofile/` + userInfo.userId,
         {
           method: "PUT",
           body: formData,
