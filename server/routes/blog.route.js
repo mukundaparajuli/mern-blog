@@ -7,10 +7,10 @@ const router = express.Router();
 
 router.get('/blogs', getAllBlogs);
 router.get('/blogs/:blogid', getOneBlog);
+router.get('/blogs/category/:category', findByCategories);
+router.get('/blogs/search/:searchTerm', findBySearch);
 router.post('/blogs', validateJWT, validateAdmin, upload.single('coverImage'), createBlog);
 router.delete('/blogs/:blogid', validateJWT, validateAdmin, deleteBlog);
-router.get('/blogs/category/:category', validateJWT, findByCategories);
-router.get('/blogs/search/:searchTerm', validateJWT, findBySearch);
 // router.post('/blogs/cover', validateJWT, upload.single("cover"), uploadCoverImage);
 
 module.exports = router;

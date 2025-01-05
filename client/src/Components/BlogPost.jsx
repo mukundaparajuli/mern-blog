@@ -36,13 +36,13 @@ const BlogPost = ({ title, blogDescription, coverImage, _id }) => {
     // Set maximum characters based on screen width
     if (screenWidth < 640) {
       titleMaxChars = 30;
-      descriptionMaxChars = 100;
+      descriptionMaxChars = 300;
     } else if (screenWidth < 768) {
       titleMaxChars = 50;
-      descriptionMaxChars = 150;
+      descriptionMaxChars = 450;
     } else {
       titleMaxChars = 70;
-      descriptionMaxChars = 200;
+      descriptionMaxChars = 900;
     }
 
     // Update the truncated title and description

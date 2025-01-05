@@ -68,7 +68,7 @@ const CommentCard = ({ userId, commentText, _id }) => {
         {isMenuOpen && (
           <div className="absolute right-0 mt-6 w-48 bg-white border rounded shadow-lg z-10">
             <ul className="py-1">
-              {userId._id === userInfo.userId && (
+              {(userId._id === userInfo.userId || userInfo.isAdmin) && (
                 <li
                   className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
                   onClick={async () => {
