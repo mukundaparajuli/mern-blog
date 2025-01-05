@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import BlogPost from "./BlogPost";
+import { UserContext } from "../store/userContext";
 
 const BlogListByCategory = () => {
   let [blogsByCategory, setBlogsByCategory] = useState([]);
   const { categories } = useParams();
+  const {userInfo} = useContext(UserContext);
 
   const getBlogsByCategory = async () => {
     try {
@@ -13,6 +15,9 @@ const BlogListByCategory = () => {
         {
           method: "GET",
           credentials: "include",
+          headers: {
+            Authorization: `Bearer ${userInfo?.token}`
+          },
         }
       );
       if (response.ok) {

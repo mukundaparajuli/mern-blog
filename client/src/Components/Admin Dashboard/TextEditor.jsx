@@ -26,6 +26,9 @@ const TextEditor = () => {
         method: "POST",
         credentials: "include",
         body: formData,
+        headers: {
+            Authorization: `Bearer ${userInfo?.token}`
+          },
       });
       // console.log(await response.json())
       if (response.ok) {

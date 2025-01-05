@@ -13,6 +13,9 @@ const ProfileCard = ({ setShow }) => {
       const response = await fetch(`https://techtonic-backend.onrender.com/api/auth/logout`, {
         method: "POST",
         credentials: "include",
+        headers: {
+            Authorization: `Bearer ${userInfo?.token}`
+          },
       });
       if (response.ok) {
         setShow(false);

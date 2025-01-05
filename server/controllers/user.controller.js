@@ -53,18 +53,18 @@ const updateProfile = expressAsyncHandler(async (req, res) => {
 
 const profileInfo = expressAsyncHandler(async (req, res) => {
 
-    const { Token } = req.cookies;
+    const authHeader = req.headers.authorization || req.headers.Authorization;
+    const token = authHeader && authHeader.startsWith("Bearer")
+        ? authHeader.split(" ")[1]
+        : req.cookies?.Token;
 
-    if (!Token) {
-        res.status(404).json({ message: "Token not found" });
-    }
 
-
-    jwt.verify(Token, process.env.SECRET_KEY, (err, decoded) => {
+    jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
         if (err) {
             res.status(401).send("Token not verified!");
         } else {
             const userInfo = decoded.user;
+            userInfo.token = token;
             return res.status(200).json({ message: 'user profile', userInfo });
 
         }

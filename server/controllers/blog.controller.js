@@ -48,9 +48,7 @@ const createBlog = expressAsyncHandler(async (req, res) => {
             category,
         });
 
-        res.status(201).cookie("hi", "hello", {
-            httpOnly: true,
-        }).json({ blog });
+        res.status(201).json({ blog });
     } catch (err) {
         console.error("Error occurred while creating blog:", err);
         res.status(500).json({ message: "Internal Server Error" });

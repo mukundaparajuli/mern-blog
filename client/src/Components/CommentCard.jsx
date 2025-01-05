@@ -18,6 +18,9 @@ const CommentCard = ({ userId, commentText, _id }) => {
         `https://techtonic-backend.onrender.com/api/comment/delete/` + _id,
         {
           method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${userInfo?.token}`
+          },
         }
       );
       if (response.ok) {

@@ -11,7 +11,11 @@ const useSavedBlogs = () => {
     const fetchSavedBlogs = async () => {
       try {
         const response = await fetch(
-          `https://techtonic-backend.onrender.com/api/saved/savedPost/${userInfo.userInfo.userId}`
+          `https://techtonic-backend.onrender.com/api/saved/savedPost/${userInfo.userInfo.userId}`,{
+            headers: {
+            Authorization: `Bearer ${userInfo?.token}`
+          },
+          }
         );
         if (response.ok) {
           const data = await response.json();
@@ -25,7 +29,11 @@ const useSavedBlogs = () => {
 
     const fetchAllBlogs = async () => {
       try {
-        const response = await fetch(`https://techtonic-backend.onrender.com/api/blog/blogs`);
+        const response = await fetch(`https://techtonic-backend.onrender.com/api/blog/blogs`,{
+          headers: {
+            Authorization: `Bearer ${userInfo?.token}`
+          },
+        });
         if (response.ok) {
           const data = await response.json();
 

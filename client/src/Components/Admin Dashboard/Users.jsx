@@ -8,6 +8,9 @@ const Users = () => {
       const response = await fetch(`https://techtonic-backend.onrender.com/api/admin/users`, {
         method: "GET",
         credentials: "include",
+        headers: {
+            Authorization: `Bearer ${userInfo?.token}`
+          },
       });
       if (response.ok) {
         const data = await response.json();

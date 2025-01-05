@@ -168,18 +168,18 @@ const BlogPost = ({ title, blogDescription, coverImage, _id }) => {
           ></div>
           <div className="w-full flex items-center justify-between md:h-18 h-12">
             <button
-              className="md:w-11/12 w-10/12 rounded-xl bg-black text-white font-semibold py-1 mt-8"
+              className="md:w-11/12 w-10/12 h-10 rounded-xl bg-black text-white font-semibold py-1 mt-8"
               onClick={() => handleBlogPage(_id)}
             >
               Read More
             </button>
             {isSaved ? (
               <button className="md:w-1/12 w-2/12" onClick={handleUnsavePost}>
-                <img src={saved} alt="Unsave" className="h-8 w-8 py-1 mt-8" />
+                <img src={saved} alt="Unsave" className="h-10 w-10 py-1 mt-8" />
               </button>
             ) : (
               <button className="md:w-1/12 w-2/12" onClick={handleSavePost}>
-                <img src={save} alt="Save" className="h-8 w-8 py-1 mt-8" />
+                <img src={save} alt="Save" className="h-10 w-10 py-1 mt-8" />
               </button>
             )}
           </div>

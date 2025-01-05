@@ -48,6 +48,9 @@ const ProfilePage = () => {
         {
           method: "PUT",
           body: formData,
+          headers: {
+            Authorization: `Bearer ${userInfo?.token}`
+          },
         }
       );
       if (response.ok) {

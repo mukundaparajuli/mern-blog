@@ -13,6 +13,9 @@ const BlogListBySearchTerm = () => {
         {
           method: "GET",
           credentials: "include",
+          headers: {
+            Authorization: `Bearer ${userInfo?.token}`
+          },
         }
       );
       if (response.ok) {

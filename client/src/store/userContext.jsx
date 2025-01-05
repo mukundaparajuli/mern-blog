@@ -9,7 +9,7 @@ export const UserProvider = ({ children }) => {
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const response = await fetch(`{BACKEND_URL}api/user/profile`, {
+        const response = await fetch(`${BACKEND_URL}/api/user/profile`, {
           credentials: "include",
           method: "GET"
         })

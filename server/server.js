@@ -39,6 +39,15 @@ app.use("/api/user/", require("./routes/user.route"));
 app.use("/api/saved/", require("./routes/saved.route"));
 app.use("/", require("./routes/verify-email.route"));
 
+app.get("/", (req, res) => {
+    console.log("server is up and running");
+    res.send("server is up and running")
+})
+app.get("/check-cookies", (req, res) => {
+    console.log("all cookies are here: ");
+    console.log(req.cookies.Token);
+});
+
 app.listen(port, () => {
     console.log("Listening to the port " + port);
 })
