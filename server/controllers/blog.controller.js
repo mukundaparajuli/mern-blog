@@ -51,7 +51,9 @@ const createBlog = expressAsyncHandler(async (req, res) => {
         res.status(201).json({ blog });
     } catch (err) {
         console.error("Error occurred while creating blog:", err);
-        res.status(500).json({ message: "Internal Server Error" });
+        res.status(500).json({ message: "Internal Server Error" }, {
+            err
+        });
     }
 });
 

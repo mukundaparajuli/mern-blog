@@ -46,6 +46,7 @@ app.get("/", (req, res) => {
 app.get("/check-cookies", (req, res) => {
     console.log("all cookies are here: ");
     console.log(req.cookies.Token);
+    res.send(req.cookies);
 });
 
 app.listen(port, () => {

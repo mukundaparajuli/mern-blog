@@ -30,10 +30,8 @@ const TextEditor = () => {
             Authorization: `Bearer ${userInfo?.token}`
           },
       });
-      // console.log(await response.json())
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
       }
     } catch (error) {
       console.log("error is", error);
