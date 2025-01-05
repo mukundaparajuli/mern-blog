@@ -27,7 +27,7 @@ const verifyEmail = async (req, res) => {
         await user.save();
 
         // After successful verification, redirect the user to the homepage
-        return res.redirect('/');
+        return res.redirect(process.env.CLIENT_URL);
     } catch (err) {
         return res.status(400).json({ message: 'Token is invalid or has expired' });
     }

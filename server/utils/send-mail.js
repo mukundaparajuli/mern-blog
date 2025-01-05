@@ -12,12 +12,12 @@ const sendVerificationEmail = async (email, verificationToken) => {
         });
 
         // URL for the verification link
-        const verificationUrl = `${process.env.CLIENT_URL}/verify-email?token=${verificationToken}`;
+        const verificationUrl = `${process.env.BACKEND_URL}/verify-email?token=${verificationToken}`;
 
         // Mail options
         const mailOptions = {
             from: process.env.GMAIL_USER,
-            to: email, 
+            to: email,
             subject: 'Email Verification - Complete your registration',
             text: `Thank you for registering. Please verify your email by clicking on the following link: ${verificationUrl}`,
             html: `<p>Thank you for registering.</p><p>Please verify your email by clicking on the following link:</p><a href="${verificationUrl}">${verificationUrl}</a>`,
@@ -26,7 +26,6 @@ const sendVerificationEmail = async (email, verificationToken) => {
         // Send the email
         const info = await transporter.sendMail(mailOptions);
 
-        console.log('Email sent: ' + info.response);
         return true;
     } catch (error) {
         console.error('Error sending email: ', error);
